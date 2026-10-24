@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark light">
+
+  <!-- TODO: замените имя, роль и описание на свои -->
+  <title>Александр Петров — Frontend-разработчик</title>
+  <meta name="description" content="Персональный сайт Александра Петрова: frontend-разработка, проекты и контакты.">
+  <meta name="author" content="Александр Петров">
+  <meta name="theme-color" content="#070b14">
+
+  <!-- Open Graph / соцсети -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Александр Петров — Frontend-разработчик">
+  <meta property="og:description" content="Создаю быстрые, доступные и аккуратные веб-интерфейсы.">
+  <meta property="og:locale" content="ru_RU">
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%236d8dff'/%3E%3Cstop offset='1' stop-color='%23b388ff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Ctext x='32' y='43' font-family='system-ui, sans-serif' font-size='26' font-weight='700' fill='%23fff' text-anchor='middle'%3EAP%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="assets/css/styles.css">
+
+  <!-- Тема применяется до отрисовки, чтобы не было мигания -->
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem('theme');
+        var prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+        document.documentElement.dataset.theme = saved || (prefersLight ? 'light' : 'dark');
+      } catch (e) { /* localStorage может быть недоступен */ }
+    })();
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Перейти к содержимому</a>
+
+  <header class="site-header" id="site-header">
+    <div class="container header__inner">
+      <a class="brand" href="#top" aria-label="В начало страницы">
+        <span class="brand__mark" aria-hidden="true">АП</span>
+        <span class="brand__name">Александр Петров</span>
+      </a>
+
+      <nav class="nav" id="nav" aria-label="Основная навигация">
+        <ul class="nav__list">
+          <li><a class="nav__link" href="#about">Обо мне</a></li>
+          <li><a class="nav__link" href="#projects">Проекты</a></li>
+          <li><a class="nav__link" href="#skills">Навыки</a></li>
+          <li><a class="nav__link" href="#contact">Контакты</a></li>
+        </ul>
+      </nav>
+
+      <div class="header__actions">
+        <button class="icon-btn" id="theme-toggle" type="button" aria-label="Включить светлую тему">
+          <svg class="icon icon--sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="4.2"/>
+            <path d="M12 2.4v2.2M12 19.4v2.2M2.4 12h2.2M19.4 12h2.2M5.2 5.2l1.6 1.6M17.2 17.2l1.6 1.6M18.8 5.2l-1.6 1.6M6.8 17.2l-1.6 1.6"/>
+          </svg>
+          <svg class="icon icon--moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M20.5 14.2A8.6 8.6 0 0 1 9.8 3.5a8.6 8.6 0 1 0 10.7 10.7Z"/>
+          </svg>
+        </button>
+
+        <button class="icon-btn nav-toggle" id="nav-toggle" type="button"
+                aria-label="Открыть меню" aria-expanded="false" aria-controls="nav">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true">
+            <path class="nav-toggle__top" d="M4 7h16"/>
+            <path class="nav-toggle__middle" d="M4 12h16"/>
+            <path class="nav-toggle__bottom" d="M4 17h16"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- ========== Hero ========== -->
+    <section class="hero" id="top">
+      <div class="container hero__inner">
+        <div class="hero__content">
+          <p class="status">
+            <span class="status__dot" aria-hidden="true"></span>
+            Открыт к интересным проектам
+          </p>
+
+          <h1 class="hero__title">
+            Привет, я <span class="gradient-text">Александр</span>
+          </h1>
+          <p class="hero__role">Frontend-разработчик · Москва</p>
+          <p class="hero__lead">
+            Создаю быстрые, доступные и аккуратные веб-интерфейсы. Люблю продуманные
+            детали, чистый код и проекты, которые решают реальные задачи.
+          </p>
+
+          <div class="hero__actions">
+            <a class="btn btn--primary" href="#projects">
+              Смотреть проекты
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M5 12h14M13 6l6 6-6 6"/>
+              </svg>
+            </a>
+            <a class="btn btn--ghost" href="#contact">Связаться</a>
+          </div>
+
+          <ul class="socials" aria-label="Социальные сети">
+            <li>
+              <a class="social" href="https://github.com/your-username" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                <svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49 0-.24-.01-1.04-.01-1.89-2.78.62-3.37-1.21-3.37-1.21-.45-1.18-1.11-1.49-1.11-1.49-.91-.64.07-.63.07-.63 1 .07 1.53 1.06 1.53 1.06.89 1.57 2.34 1.12 2.91.85.09-.66.35-1.12.63-1.37-2.22-.26-4.56-1.14-4.56-5.06 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.31.1-2.73 0 0 .84-.28 2.75 1.05a9.4 9.4 0 0 1 5 0c1.91-1.33 2.75-1.05 2.75-1.05.55 1.42.2 2.47.1 2.73.64.72 1.03 1.63 1.03 2.75 0 3.93-2.35 4.79-4.58 5.05.36.32.68.94.68 1.9 0 1.37-.01 2.48-.01 2.82 0 .27.18.6.69.49A10.02 10.02 0 0 0 22 12.25C22 6.58 17.52 2 12 2Z"/>
+                </svg>
+              </a>
+            </li>
+            <li>
+              <a class="social" href="https://t.me/your_username" target="_blank" rel="noopener noreferrer" aria-label="Telegram">
+                <svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M21.9 4.3 18.8 19c-.2 1-.9 1.2-1.7.8l-4.6-3.4-2.2 2.1c-.2.2-.5.4-.9.4l.3-4.6 8.3-7.5c.4-.3-.1-.5-.6-.2L7.2 13.1l-4.5-1.4c-1-.3-1-1 .2-1.4l17.6-6.8c.8-.3 1.5.2 1.4 1.1Z"/>
+                </svg>
+              </a>
+            </li>
+            <li>
+              <a class="social" href="https://www.linkedin.com/in/your-username" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                <svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M6.94 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0ZM7 8.48H3V21h4V8.48Zm6.32 0H9.34V21h3.94v-6.57c0-3.66 4.77-4 4.77 0V21H22v-7.93c0-6.17-7.06-5.94-8.72-2.91l.04-1.68Z"/>
+                </svg>
+              </a>
+            </li>
+            <li>
+              <a class="social" href="mailto:hello@example.com" aria-label="Написать на почту">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <rect x="3" y="5" width="18" height="14" rx="2.5"/>
+                  <path d="m3.5 7.5 8.5 5.6 8.5-5.6"/>
+                </svg>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="hero__visual" aria-hidden="true">
+          <div class="avatar">
+            <!-- TODO: замените блок на <img src="assets/img/avatar.jpg" alt="Александр Петров"> -->
+            <div class="avatar__inner">АП</div>
+          </div>
+
+          <div class="float-card float-card--exp">
+            <span class="float-card__value">5+</span>
+            <span class="float-card__label">лет в разработке</span>
+          </div>
+          <div class="float-card float-card--stack">
+            <span class="float-card__chip">&lt;/&gt;</span>
+            <span class="float-card__label">TypeScript · React</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== Обо мне ========== -->
+    <section class="section" id="about">
+      <div class="container">
+        <header class="section__head reveal">
+          <p class="eyebrow">Обо мне</p>
+          <h2 class="section__title">Код, который приятно поддерживать</h2>
+        </header>
+
+        <div class="about">
+          <div class="about__text reveal">
+            <p>
+              Последние несколько лет я занимаюсь фронтендом: превращаю макеты в живые
+              интерфейсы и слежу за тем, чтобы они оставались быстрыми даже на слабых
+              устройствах. Работал с продуктовыми командами, дизайнерами и бэкендом —
+              умею договариваться и доводить задачи до результата.
+            </p>
+            <p>
+              Вне работы пишу небольшие инструменты для себя, читаю про доступность
+              и типографику, иногда собираю пет-проекты на выходных. Верю, что хороший
+              интерфейс — это когда пользователь не задумывается, куда нажать.
+            </p>
+          </div>
+
+          <ul class="facts reveal">
+            <li class="fact">
+              <span class="fact__value">5+</span>
+              <span class="fact__label">лет коммерческого опыта</span>
+            </li>
+            <li class="fact">
+              <span class="fact__value">20+</span>
+              <span class="fact__label">завершённых проектов</span>
+            </li>
+            <li class="fact">
+              <span class="fact__value">∞</span>
+              <span class="fact__label">чашек кофе и любопытства</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== Проекты ========== -->
+    <section class="section" id="projects">
+      <div class="container">
+        <header class="section__head reveal">
+          <p class="eyebrow">Проекты</p>
+          <h2 class="section__title">Что я делал</h2>
+          <p class="section__lead">Несколько работ, которыми хочется поделиться.</p>
+        </header>
+
+        <div class="projects">
+          <article class="card project reveal">
+            <div class="project__top">
+              <span class="project__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M5 4.5h11.5L20 8v11.5H5z"/>
+                  <path d="M15.5 4.5V8H19M8.5 12h8M8.5 15.5h5"/>
+                </svg>
+              </span>
+              <div class="project__links">
+                <a href="https://github.com/your-username/notes-app" target="_blank" rel="noopener noreferrer" aria-label="Код проекта «Заметки» на GitHub">
+                  <svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49 0-.24-.01-1.04-.01-1.89-2.78.62-3.37-1.21-3.37-1.21-.45-1.18-1.11-1.49-1.11-1.49-.91-.64.07-.63.07-.63 1 .07 1.53 1.06 1.53 1.06.89 1.57 2.34 1.12 2.91.85.09-.66.35-1.12.63-1.37-2.22-.26-4.56-1.14-4.56-5.06 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.31.1-2.73 0 0 .84-.28 2.75 1.05a9.4 9.4 0 0 1 5 0c1.91-1.33 2.75-1.05 2.75-1.05.55 1.42.2 2.47.1 2.73.64.72 1.03 1.63 1.03 2.75 0 3.93-2.35 4.79-4.58 5.05.36.32.68.94.68 1.9 0 1.37-.01 2.48-.01 2.82 0 .27.18.6.69.49A10.02 10.02 0 0 0 22 12.25C22 6.58 17.52 2 12 2Z"/>
+                  </svg>
+                </a>
+                <a href="https://your-username.github.io/notes-app/" target="_blank" rel="noopener noreferrer" aria-label="Открыть демо проекта «Заметки»">
+                  <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M8 16 16 8M9 8h7v7"/>
+                  </svg>
+                </a>
+              </div>
+            </div>
+            <h3 class="project__title">Заметки</h3>
+            <p class="project__text">
+              Офлайн-редактор заметок с мгновенным поиском и Markdown. Данные хранятся
+              локально, синхронизация — через File System Access API.
+            </p>
+            <ul class="tags">
+              <li>TypeScript</li>
+              <li>Vite</li>
+              <li>IndexedDB</li>
+            </ul>
+          </article>
+
+          <article class="card project reveal">
+            <div class="project__top">
+              <span class="project__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M7 16.5a4.5 4.5 0 0 1-.4-8.98A5.5 5.5 0 0 1 17.3 8.2a4.2 4.2 0 0 1 .7 8.3"/>
+                  <path d="M8 20l2-3M12 20l2-3M16 20l2-3"/>
+                </svg>
+              </span>
+              <div class="project__links">
+                <a href="https://github.com/your-username/weather-dashboard" target="_blank" rel="noopener noreferrer" aria-label="Код проекта «Погода» на GitHub">
+                  <svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49 0-.24-.01-1.04-.01-1.89-2.78.62-3.37-1.21-3.37-1.21-.45-1.18-1.11-1.49-1.11-1.49-.91-.64.07-.63.07-.63 1 .07 1.53 1.06 1.53 1.06.89 1.57 2.34 1.12 2.91.85.09-.66.35-1.12.63-1.37-2.22-.26-4.56-1.14-4.56-5.06 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.31.1-2.73 0 0 .84-.28 2.75 1.05a9.4 9.4 0 0 1 5 0c1.91-1.33 2.75-1.05 2.75-1.05.55 1.42.2 2.47.1 2.73.64.72 1.03 1.63 1.03 2.75 0 3.93-2.35 4.79-4.58 5.05.36.32.68.94.68 1.9 0 1.37-.01 2.48-.01 2.82 0 .27.18.6.69.49A10.02 10.02 0 0 0 22 12.25C22 6.58 17.52 2 12 2Z"/>
+                  </svg>
+                </a>
+              </div>
+            </div>
+            <h3 class="project__title">Погода</h3>
+            <p class="project__text">
+              Дашборд с прогнозом на неделю и графиком осадков. Кэширует ответы API,
+              работает без сети и уважает системную тему оформления.
+            </p>
+            <ul class="tags">
+              <li>React</li>
+              <li>Chart.js</li>
+              <li>PWA</li>
+            </ul>
+          </article>
+
+          <article class="card project reveal">
+            <div class="project__top">
+              <span class="project__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 19V7.5A2.5 2.5 0 0 1 6.5 5H19v14H6.5A2.5 2.5 0 0 0 4 21.5"/>
+                  <path d="M8 9h7M8 12.5h5"/>
+                </svg>
+              </span>
+              <div class="project__links">
+                <a href="https://github.com/your-username/habit-tracker" target="_blank" rel="noopener noreferrer" aria-label="Код проекта «Трекер привычек» на GitHub">
+                  <svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49 0-.24-.01-1.04-.01-1.89-2.78.62-3.37-1.21-3.37-1.21-.45-1.18-1.11-1.49-1.11-1.49-.91-.64.07-.63.07-.63 1 .07 1.53 1.06 1.53 1.06.89 1.57 2.34 1.12 2.91.85.09-.66.35-1.12.63-1.37-2.22-.26-4.56-1.14-4.56-5.06 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.31.1-2.73 0 0 .84-.28 2.75 1.05a9.4 9.4 0 0 1 5 0c1.91-1.33 2.75-1.05 2.75-1.05.55 1.42.2 2.47.1 2.73.64.72 1.03 1.63 1.03 2.75 0 3.93-2.35 4.79-4.58 5.05.36.32.68.94.68 1.9 0 1.37-.01 2.48-.01 2.82 0 .27.18.6.69.49A10.02 10.02 0 0 0 22 12.25C22 6.58 17.52 2 12 2Z"/>
+                  </svg>
+                </a>
+              </div>
+            </div>
+            <h3 class="project__title">Трекер привычек</h3>
+            <p class="project__text">
+              Минималистичное приложение с сериями, статистикой и напоминаниями.
+              Полностью клавиатурная навигация и контраст, проходящий WCAG AA.
+            </p>
+            <ul class="tags">
+              <li>Vue 3</li>
+              <li>Pinia</li>
+              <li>Accessibility</li>
+            </ul>
+          </article>
+
+          <article class="card project reveal">
+            <div class="project__top">
+              <span class="project__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="8.5"/>
+                  <path d="M3.5 12h17M12 3.5c2.4 2.4 3.6 5.3 3.6 8.5s-1.2 6.1-3.6 8.5c-2.4-2.4-3.6-5.3-3.6-8.5S9.6 5.9 12 3.5Z"/>
+                </svg>
+              </span>
+              <div class="project__links">
+                <a href="https://github.com/your-username/personal-website" target="_blank" rel="noopener noreferrer" aria-label="Код этого сайта на GitHub">
+                  <svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49 0-.24-.01-1.04-.01-1.89-2.78.62-3.37-1.21-3.37-1.21-.45-1.18-1.11-1.49-1.11-1.49-.91-.64.07-.63.07-.63 1 .07 1.53 1.06 1.53 1.06.89 1.57 2.34 1.12 2.91.85.09-.66.35-1.12.63-1.37-2.22-.26-4.56-1.14-4.56-5.06 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.31.1-2.73 0 0 .84-.28 2.75 1.05a9.4 9.4 0 0 1 5 0c1.91-1.33 2.75-1.05 2.75-1.05.55 1.42.2 2.47.1 2.73.64.72 1.03 1.63 1.03 2.75 0 3.93-2.35 4.79-4.58 5.05.36.32.68.94.68 1.9 0 1.37-.01 2.48-.01 2.82 0 .27.18.6.69.49A10.02 10.02 0 0 0 22 12.25C22 6.58 17.52 2 12 2Z"/>
+                  </svg>
+                </a>
+              </div>
+            </div>
+            <h3 class="project__title">Этот сайт</h3>
+            <p class="project__text">
+              Статический сайт без сборки и зависимостей: чистый HTML/CSS/JS,
+              тёмная и светлая темы, деплой на GitHub Pages через Actions.
+            </p>
+            <ul class="tags">
+              <li>HTML</li>
+              <li>CSS</li>
+              <li>GitHub Actions</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== Навыки ========== -->
+    <section class="section" id="skills">
+      <div class="container">
+        <header class="section__head reveal">
+          <p class="eyebrow">Навыки</p>
+          <h2 class="section__title">Чем я пользуюсь</h2>
+        </header>
+
+        <div class="skills">
+          <article class="card skill-group reveal">
+            <h3 class="skill-group__title">Frontend</h3>
+            <ul class="tags tags--lg">
+              <li>JavaScript</li>
+              <li>TypeScript</li>
+              <li>React</li>
+              <li>Vue 3</li>
+              <li>HTML5</li>
+              <li>CSS3</li>
+            </ul>
+          </article>
+
+          <article class="card skill-group reveal">
+            <h3 class="skill-group__title">Инструменты</h3>
+            <ul class="tags tags--lg">
+              <li>Git</li>
+              <li>Vite</li>
+              <li>GitHub Actions</li>
+              <li>Figma</li>
+              <li>ESLint</li>
+            </ul>
+          </article>
+
+          <article class="card skill-group reveal">
+            <h3 class="skill-group__title">И рядом</h3>
+            <ul class="tags tags--lg">
+              <li>Node.js</li>
+              <li>REST API</li>
+              <li>Accessibility</li>
+              <li>Web Performance</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== Контакты ========== -->
+    <section class="section" id="contact">
+      <div class="container">
+        <div class="contact reveal">
+          <div class="contact__text">
+            <p class="eyebrow">Контакты</p>
+            <h2 class="section__title">Давайте что-нибудь сделаем</h2>
+            <p class="contact__lead">
+              Открыт к предложениям о работе и интересным совместным проектам.
+              Отвечаю в течение дня.
+            </p>
+          </div>
+
+          <div class="contact__actions">
+            <!-- TODO: замените адрес почты -->
+            <a class="btn btn--primary btn--lg" href="mailto:hello@example.com?subject=Привет%21">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="3" y="5" width="18" height="14" rx="2.5"/>
+                <path d="m3.5 7.5 8.5 5.6 8.5-5.6"/>
+              </svg>
+              hello@example.com
+            </a>
+
+            <button class="btn btn--ghost btn--lg" id="copy-email" type="button" data-email="hello@example.com">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="9" y="9" width="11" height="11" rx="2.5"/>
+                <path d="M15 5.5A2.5 2.5 0 0 0 12.5 3h-7A2.5 2.5 0 0 0 3 5.5v7A2.5 2.5 0 0 0 5.5 15"/>
+              </svg>
+              <span class="copy-email__label">Скопировать адрес</span>
+            </button>
+
+            <p class="contact__note" role="status" aria-live="polite" id="copy-status"></p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer__inner">
+      <p class="footer__text">
+        © <span data-year>2026</span> Александр Петров. Сделано вручную, без фреймворков.
+      </p>
+      <a class="footer__link" href="#top">
+        Наверх
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 19V5M6 11l6-6 6 6"/>
+        </svg>
+      </a>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js" defer></script>
+</body>
+</html>
+
