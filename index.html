@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="ru" data-theme="dark">
+<html lang="ru">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="color-scheme" content="dark light">
+  <meta name="color-scheme" content="dark">
 
   <title>Blin4ik — rust / c · игровые движки</title>
   <meta name="description" content="Blin4ik — разработчик на Rust и C. Автор игрового движка на wgpu и winit и рогалика CRISP в духе Factorio.">
   <meta name="author" content="Blin4ik">
-  <meta name="theme-color" content="#04070d">
+  <meta name="theme-color" content="#050505">
 
   <!-- Open Graph / соцсети -->
   <meta property="og:type" content="website">
@@ -16,49 +16,22 @@
   <meta property="og:description" content="Пишу на Rust и C, делаю свой игровой движок на wgpu и winit. Сейчас работаю над CRISP.">
   <meta property="og:locale" content="ru_RU">
 
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%2304070d'/%3E%3Ctext x='32' y='42' font-family='monospace' font-size='22' font-weight='700' fill='%236ff2ff' text-anchor='middle'%3EB4%3C/text%3E%3Crect x='8' y='8' width='48' height='48' fill='none' stroke='%23ffc857' stroke-width='1.5' stroke-dasharray='4 3'/%3E%3C/svg%3E">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23050505'/%3E%3Ctext x='32' y='42' font-family='monospace' font-size='22' font-weight='700' fill='%23ff7a18' text-anchor='middle'%3EB4%3C/text%3E%3Crect x='8' y='8' width='48' height='48' fill='none' stroke='%23e6d59a' stroke-width='1.5' stroke-dasharray='4 3'/%3E%3C/svg%3E">
   <link rel="stylesheet" href="assets/css/terminal.css">
-
-  <!-- Тема и флаг «JS доступен» — до отрисовки, чтобы не было мигания -->
-  <script>
-    (function () {
-      var root = document.documentElement;
-      root.classList.add("js");
-      try {
-        var saved = localStorage.getItem("theme");
-        var prefersLight = window.matchMedia("(prefers-color-scheme: light)").matches;
-        root.dataset.theme = saved || (prefersLight ? "light" : "dark");
-      } catch (e) { /* localStorage может быть недоступен */ }
-    })();
-  </script>
 </head>
 <body>
   <a class="skip-link" href="#main">Перейти к содержимому</a>
 
-  <!-- Декоративная космическая сцена -->
-  <div class="cosmos" aria-hidden="true">
-    <canvas class="cosmos__stars" id="starfield"></canvas>
-    <div class="cosmos__grid"></div>
-    <div class="cosmos__planet"></div>
-    <div class="cosmos__beam"></div>
-    <div class="cosmos__vignette"></div>
-  </div>
-
   <header class="site-header" id="site-header">
     <div class="container header__inner">
-      <a class="brand" href="#top" aria-label="В начало страницы">
-        <span class="brand__insignia">
-          <img src="endfield-industries.svg" alt="" width="26" height="26" decoding="async">
-        </span>
-        <span class="brand__text">
-          <span class="brand__host">blin4ik@hailmary</span><span class="brand__path">:~$</span>
-        </span>
-        <span class="caret caret--sm" aria-hidden="true"></span>
+      <a class="brand" href="#top" aria-label="Blin4ik — в начало страницы">
+        <span class="brand__tag" aria-hidden="true">B4</span>
+        <span class="brand__name">BLIN4IK</span>
       </a>
 
-      <p class="header__signal" aria-hidden="true">
-        <span class="signal__bars"><span></span><span></span><span></span><span></span></span>
-        <span>link</span>
+      <p class="header__status">
+        <span class="status-dot" aria-hidden="true"></span>
+        SYSTEM / NOMINAL
       </p>
 
       <nav class="nav" id="nav" aria-label="Основная навигация">
@@ -70,15 +43,10 @@
         </ul>
       </nav>
 
-      <div class="header__actions">
-        <button class="tbtn" id="theme-toggle" type="button" aria-label="Переключить тему">
-          <span class="tbtn__key" aria-hidden="true">theme=</span><span id="theme-label">dark</span>
-        </button>
-        <button class="tbtn nav-toggle" id="nav-toggle" type="button"
-                aria-label="Открыть меню" aria-expanded="false" aria-controls="nav">
-          <span class="tbtn__brackets" aria-hidden="true">[</span><span id="nav-toggle-label">menu</span><span class="tbtn__brackets" aria-hidden="true">]</span>
-        </button>
-      </div>
+      <button class="nav-toggle" id="nav-toggle" type="button"
+              aria-label="Открыть меню" aria-expanded="false" aria-controls="nav">
+        <span aria-hidden="true">[</span><span id="nav-toggle-label">menu</span><span aria-hidden="true">]</span>
+      </button>
     </div>
   </header>
 
@@ -86,113 +54,158 @@
     <!-- ========== Hero ========== -->
     <section class="hero" id="top">
       <div class="container">
-        <div class="hero__top boot" style="--d: 0.05s">
-          <p class="hero__callsign"><span class="hero__tag">mission // personal</span> blin4ik</p>
-          <p class="hero__bracket">SOL <span>→</span> TAU CETI</p>
+        <div class="hero__meta">
+          <p><span class="label">LOG 04</span>PERSONAL CONSOLE / BLIN4IK</p>
+          <p>SOL → TAU CETI / FLIGHT PLAN 01</p>
         </div>
 
         <div class="hero__grid">
-          <div class="hero__text">
-            <p class="line boot" style="--d: 0.1s">
-              <span class="prompt">blin4ik@hailmary:~$</span> <span class="cmd">whoami</span>
-            </p>
-
-            <h1 class="sr-only">Blin4ik — Rust/C разработчик, игровые движки</h1>
-            <pre class="ascii boot" style="--d: 0.18s" aria-hidden="true"><span>###  #    #### #  # #  # #### #  #</span><span>#  # #     ##  ## # #  #  ##  # #</span><span>###  #     ##  # ## ####  ##  ##</span><span>#  # #     ##  #  #    #  ##  # #</span><span>###  #### #### #  #    # #### #  #</span></pre>
-
-            <p class="line boot" style="--d: 0.26s">
-              <span class="prompt">blin4ik@hailmary:~$</span> <span class="cmd">cat role.txt</span>
-            </p>
-            <p class="hero__role boot" style="--d: 0.34s" aria-label="Rust / C разработчик · игровые движки · ВятГУ">
-              <span data-typed aria-hidden="true">Rust / C разработчик · игровые движки · ВятГУ</span><span class="caret" aria-hidden="true"></span>
-            </p>
-
-            <p class="line boot" style="--d: 0.42s">
-              <span class="prompt">blin4ik@hailmary:~$</span> <span class="cmd">cat /etc/motd</span>
-            </p>
-            <p class="hero__lead boot" style="--d: 0.5s">
+          <div class="hero__intro">
+            <p class="kicker">OPERATOR ON DECK</p>
+            <h1>BLIN4IK</h1>
+            <p class="hero__role">Rust / C разработчик · игровые движки · ВятГУ</p>
+            <p class="hero__lead">
               Пишу на Rust и C, три года занимаюсь графикой и движками. Делаю собственный
               движок на wgpu и winit, а на нём — CRISP, рогалик в духе Factorio.
             </p>
 
-            <div class="hero__actions boot" style="--d: 0.58s">
-              <a class="btn btn--primary" href="#projects">cd projects/</a>
-              <a class="btn" href="#contact">mail blin4ik</a>
+            <div class="hero__actions">
+              <a class="button button--accent" href="#projects">проекты</a>
+              <a class="button" href="#contact">связаться</a>
             </div>
 
-            <ul class="socials boot" style="--d: 0.66s" aria-label="Ссылки">
-              <li>
-                <!-- TODO: проверьте ник -->
-                <a class="social" href="https://github.com/Blin4ik" target="_blank" rel="noopener noreferrer">github</a>
-              </li>
-              <li>
-                <!-- TODO: проверьте ник -->
-                <a class="social" href="https://t.me/Blin4ik" target="_blank" rel="noopener noreferrer">telegram</a>
-              </li>
-              <li>
-                <!-- TODO: замените адрес почты -->
-                <a class="social" href="mailto:hello@example.com">mail</a>
-              </li>
+            <ul class="socials" aria-label="Ссылки">
+              <li><a class="social" href="https://github.com/Blin4ik" target="_blank" rel="noopener noreferrer">github</a></li>
+              <li><a class="social" href="https://t.me/Blin4ik" target="_blank" rel="noopener noreferrer">telegram</a></li>
+              <li><a class="social" href="mailto:hello@example.com">mail</a></li>
             </ul>
           </div>
 
-          <div class="hero__panel boot" style="--d: 0.44s">
-            <figure class="flightplan" aria-labelledby="flightplan-title">
-              <figcaption class="flightplan__head" id="flightplan-title">
-                <span class="flightplan__code">flight plan // crisp-01</span>
-                <span class="flightplan__status">active</span>
+          <div class="instruments">
+            <figure class="instrument" aria-labelledby="plot-title">
+              <figcaption class="instrument__head">
+                <h2 id="plot-title">ORBITAL PLOT / CRISP-01</h2>
+                <span class="instrument__state">ROUTE LOCKED</span>
               </figcaption>
 
-              <div class="flightplan__chart">
-                <img src="hail-mary.webp" alt="Эмблема миссии Hail Mary" width="855" height="855" decoding="async">
-                <span class="flightplan__sweep" aria-hidden="true"></span>
-                <span class="flightplan__reticle flightplan__reticle--a" aria-hidden="true"></span>
-                <span class="flightplan__reticle flightplan__reticle--b" aria-hidden="true"></span>
-                <span class="flightplan__axis flightplan__axis--x" aria-hidden="true">X</span>
-                <span class="flightplan__axis flightplan__axis--y" aria-hidden="true">Y</span>
+              <div class="plot__svg">
+                <svg viewBox="0 0 520 300" role="img" aria-labelledby="plot-svg-title">
+                  <title id="plot-svg-title">Схема маршрута от Солнца к Тау Кита с приблизительной линией Петрова</title>
+
+                  <g class="schematic-grid" aria-hidden="true">
+                    <path d="M 65 0 V 300 M 130 0 V 300 M 195 0 V 300 M 260 0 V 300 M 325 0 V 300 M 390 0 V 300 M 455 0 V 300"></path>
+                    <path d="M 0 50 H 520 M 0 110 H 520 M 0 170 H 520 M 0 230 H 520 M 0 290 H 520"></path>
+                  </g>
+
+                  <g class="schematic-line" aria-hidden="true">
+                    <circle cx="90" cy="190" r="34"></circle>
+                    <circle cx="90" cy="190" r="68"></circle>
+                    <circle cx="90" cy="190" r="108"></circle>
+                    <circle cx="90" cy="190" r="152"></circle>
+                  </g>
+
+                  <line class="petrova-line" x1="90" y1="190" x2="462" y2="70"></line>
+
+                  <circle class="sun-ring" cx="90" cy="190" r="13"></circle>
+                  <circle class="sun" cx="90" cy="190" r="6"></circle>
+                  <text class="schematic-label schematic-label--accent" x="24" y="178">SOL</text>
+
+                  <circle class="earth" cx="161" cy="106" r="4"></circle>
+                  <text class="schematic-label" x="150" y="94">EARTH</text>
+
+                  <circle class="target-ring" cx="462" cy="70" r="18"></circle>
+                  <circle class="target-ring" cx="462" cy="70" r="9"></circle>
+                  <circle class="target" cx="462" cy="70" r="3"></circle>
+                  <text class="schematic-label" x="462" y="34" text-anchor="middle">TAU CETI</text>
+
+                  <path class="route" d="M 163 104 C 235 34, 352 22, 444 62"></path>
+                  <path class="route-arrow" d="M 434 66 L 448 61 L 440 52 Z"></path>
+
+                  <text class="schematic-label schematic-label--warm" x="286" y="150" text-anchor="middle">PETROV LINE / APPROX.</text>
+                  <text class="schematic-label schematic-label--accent" x="286" y="216" text-anchor="middle">11.9 LY</text>
+
+                  <g class="tick" aria-hidden="true">
+                    <path d="M 386 270 h 8 M 406 270 h 8 M 426 270 h 8 M 446 270 h 8 M 466 270 h 8"></path>
+                    <path d="M 386 266 v 8 M 406 266 v 8 M 426 266 v 8 M 446 266 v 8 M 466 266 v 8"></path>
+                  </g>
+                  <text class="schematic-label" x="386" y="258">VECTOR / 0.02</text>
+                </svg>
               </div>
 
-              <dl class="flightplan__meta">
-                <div><dt>route</dt><dd>SOL → TAU CETI</dd></div>
-                <div><dt>drive</dt><dd>astrophage · 11.9 ly</dd></div>
-                <div><dt>origin</dt><dd>Вятка · 58.60°N 49.66°E</dd></div>
-              </dl>
+              <div class="instrument__foot">
+                <span>SOL → TAU CETI</span>
+                <span>11.9 LY</span>
+              </div>
             </figure>
 
-            <aside class="sysinfo" aria-label="Телеметрия оператора">
-              <p class="sysinfo__head">
-                <span class="sysinfo__user">blin4ik@dev</span>
-                <span class="sysinfo__rule" aria-hidden="true"></span>
-                <span class="sysinfo__ping">[ ok ]</span>
-              </p>
-              <dl class="sysinfo__list">
-                <div><dt>os</dt><dd>linux · tty</dd></div>
-                <div><dt>shell</dt><dd>zsh</dd></div>
-                <div><dt>langs</dt><dd>rust, c, c++, go</dd></div>
-                <div><dt>gpu</dt><dd>wgpu / vulkan</dd></div>
-                <div><dt>engine</dt><dd>wgpu + winit</dd></div>
-                <div><dt>now</dt><dd>CRISP</dd></div>
-                <div><dt>uptime</dt><dd>3 years</dd></div>
-                <div><dt>time</dt><dd data-clock>--:--:--</dd></div>
-              </dl>
-              <p class="sysinfo__foot"><span class="ok">[ ok ]</span> 0 warnings · 0 errors</p>
-            </aside>
+            <figure class="instrument" aria-labelledby="force-title">
+              <figcaption class="instrument__head">
+                <h2 id="force-title">FORCE / ORIENTATION</h2>
+                <span class="instrument__state">STABLE</span>
+              </figcaption>
+
+              <div class="force__body">
+                <svg class="force__svg" viewBox="0 0 160 160" role="img" aria-labelledby="force-svg-title">
+                  <title id="force-svg-title">Монитор ориентации и действующих сил</title>
+                  <circle class="force-ring" cx="80" cy="80" r="70"></circle>
+                  <circle class="force-ring force-ring--dash" cx="80" cy="80" r="52"></circle>
+                  <path class="force-cross" d="M 80 8 V 152 M 8 80 H 152"></path>
+                  <path class="force-ticks" d="M 80 10 v 6 M 80 144 v 6 M 10 80 h 6 M 144 80 h 6 M 45 15 l 4 4 M 115 145 l -4 -4 M 145 45 l -4 4 M 15 115 l 4 -4"></path>
+                  <path class="force-vector" d="M 80 80 L 80 28"></path>
+                  <path class="force-arrow" d="M 73 36 L 80 24 L 87 36"></path>
+                  <path class="force-vector force-vector--warm" d="M 80 80 L 121 106"></path>
+                  <path class="force-arrow" d="M 114 100 L 125 109 L 115 116"></path>
+                  <circle class="force-center" cx="80" cy="80" r="3"></circle>
+                </svg>
+
+                <dl class="readout">
+                  <div><dt>attitude</dt><dd>0.4° off</dd></div>
+                  <div><dt>thrust</dt><dd>1.02 g</dd></div>
+                  <div><dt>spin</dt><dd>0.18 rad/s</dd></div>
+                  <div><dt>vector</dt><dd>nominal</dd></div>
+                </dl>
+              </div>
+
+              <div class="instrument__foot">
+                <span>GYRO / 3-AXIS</span>
+                <span>ΔV 0.00</span>
+              </div>
+            </figure>
           </div>
         </div>
+
+        <dl class="telemetry">
+          <div>
+            <dt>route</dt>
+            <dd>SOL → TAU CETI</dd>
+          </div>
+          <div>
+            <dt>drive</dt>
+            <dd>astrophage · 11.9 ly</dd>
+          </div>
+          <div>
+            <dt>origin</dt>
+            <dd>Вятка · 58.60°N 49.66°E</dd>
+          </div>
+          <div>
+            <dt>ship time</dt>
+            <dd data-clock>--:--:--</dd>
+          </div>
+        </dl>
       </div>
     </section>
 
     <!-- ========== Обо мне ========== -->
     <section class="section" id="about">
       <div class="container">
-        <header class="section__head reveal">
-          <p class="section__kicker"><span class="section__num">01</span> about</p>
-          <h2 class="section__title">обо мне</h2>
+        <header class="section__head">
+          <p class="section__no">01 / ABOUT</p>
+          <h2>обо мне</h2>
           <p class="section__lead">Оператор на связи. Ниже — краткая сводка и рабочее досье.</p>
         </header>
 
         <div class="about">
-          <div class="prose reveal">
+          <div class="prose">
             <p>
               Последние три года занимаюсь низкоуровневой разработкой: Rust, C и C++,
               графика на Vulkan и собственные игровые движки. Сейчас пишу движок
@@ -207,11 +220,8 @@
             </p>
           </div>
 
-          <div class="dossier reveal">
-            <p class="dossier__head">
-              <span>operator dossier</span>
-              <span class="dossier__id">B4-07</span>
-            </p>
+          <aside class="dossier" aria-label="Досье оператора">
+            <p class="dossier__label">OPERATOR DOSSIER / B4-07</p>
             <dl class="facts">
               <div>
                 <dt>позывной</dt>
@@ -238,7 +248,7 @@
                 <dd>C и Rust под микроконтроллеры</dd>
               </div>
             </dl>
-          </div>
+          </aside>
         </div>
       </div>
     </section>
@@ -246,23 +256,18 @@
     <!-- ========== Проекты ========== -->
     <section class="section" id="projects">
       <div class="container">
-        <header class="section__head reveal">
-          <p class="section__kicker"><span class="section__num">02</span> projects</p>
-          <h2 class="section__title">проекты</h2>
+        <header class="section__head">
+          <p class="section__no">02 / PROJECTS</p>
+          <h2>проекты</h2>
           <p class="section__lead">Игра, движок под неё и инструменты вокруг.</p>
         </header>
 
-        <div class="projects">
-          <article class="win reveal">
-            <div class="win__bar">
-              <span class="win__title">CRISP</span>
-              <span class="win__meta">~/projects/crisp</span>
-              <!-- TODO: укажите ссылку на репозиторий CRISP -->
-              <a class="win__link" href="https://github.com/Blin4ik" target="_blank" rel="noopener noreferrer">[src]</a>
-            </div>
-            <div class="win__body">
-              <p class="win__status"><span class="win__dot" aria-hidden="true"></span>active // flight</p>
-              <p class="win__text">
+        <div class="project-list">
+          <article class="project">
+            <p class="project__no">01</p>
+            <div class="project__body">
+              <h3>CRISP <span class="project__path">~/projects/crisp</span></h3>
+              <p>
                 Рогалик в духе Factorio: забеги, автоматизация и производственные цепочки,
                 только с процедурной генерацией. Работает на собственном движке.
               </p>
@@ -272,16 +277,17 @@
                 <li>gamedev</li>
               </ul>
             </div>
+            <div class="project__side">
+              <span class="project__status">active // flight</span>
+              <a class="project__link" href="https://github.com/Blin4ik" target="_blank" rel="noopener noreferrer">[src]</a>
+            </div>
           </article>
 
-          <article class="win reveal">
-            <div class="win__bar">
-              <span class="win__title">engine</span>
-              <span class="win__meta">~/projects/core</span>
-            </div>
-            <div class="win__body">
-              <p class="win__status"><span class="win__dot" aria-hidden="true"></span>core // stable</p>
-              <p class="win__text">
+          <article class="project">
+            <p class="project__no">02</p>
+            <div class="project__body">
+              <h3>engine <span class="project__path">~/projects/core</span></h3>
+              <p>
                 Узкоспециализированный движок под CRISP: окно и ввод на winit, рендер
                 на wgpu, свой игровой цикл, сцены и система ресурсов. Минимум абстракций,
                 максимум контроля.
@@ -293,16 +299,16 @@
                 <li>vulkan</li>
               </ul>
             </div>
+            <div class="project__side">
+              <span class="project__status">core // stable</span>
+            </div>
           </article>
 
-          <article class="win reveal">
-            <div class="win__bar">
-              <span class="win__title">godot.ext</span>
-              <span class="win__meta">~/projects/godot-ext</span>
-            </div>
-            <div class="win__body">
-              <p class="win__status"><span class="win__dot" aria-hidden="true"></span>aux // linked</p>
-              <p class="win__text">
+          <article class="project">
+            <p class="project__no">03</p>
+            <div class="project__body">
+              <h3>godot.ext <span class="project__path">~/projects/godot-ext</span></h3>
+              <p>
                 Расширения для Godot на C++ и Qt: собственные узлы, инструменты редактора
                 и обвязка для GDScript. Иногда проще написать плагин, чем мириться
                 с ограничениями движка.
@@ -313,16 +319,16 @@
                 <li>gdscript</li>
               </ul>
             </div>
+            <div class="project__side">
+              <span class="project__status">aux // linked</span>
+            </div>
           </article>
 
-          <article class="win reveal">
-            <div class="win__bar">
-              <span class="win__title">mcu</span>
-              <span class="win__meta">~/projects/embedded</span>
-            </div>
-            <div class="win__body">
-              <p class="win__status"><span class="win__dot" aria-hidden="true"></span>ground // tested</p>
-              <p class="win__text">
+          <article class="project">
+            <p class="project__no">04</p>
+            <div class="project__body">
+              <h3>mcu <span class="project__path">~/projects/embedded</span></h3>
+              <p>
                 Работа с железом на C и Rust: периферия, прерывания, тайминги. Небольшие
                 прошивки и эксперименты, где видно каждый байт и такт.
               </p>
@@ -332,6 +338,9 @@
                 <li>embedded</li>
               </ul>
             </div>
+            <div class="project__side">
+              <span class="project__status">ground // tested</span>
+            </div>
           </article>
         </div>
       </div>
@@ -340,13 +349,13 @@
     <!-- ========== Навыки ========== -->
     <section class="section" id="skills">
       <div class="container">
-        <header class="section__head reveal">
-          <p class="section__kicker"><span class="section__num">03</span> skills</p>
-          <h2 class="section__title">навыки</h2>
+        <header class="section__head">
+          <p class="section__no">03 / SKILLS</p>
+          <h2>навыки</h2>
           <p class="section__lead">Бортовые системы, которые уже проходят проверку.</p>
         </header>
 
-        <div class="skills reveal">
+        <div class="skills">
           <div class="skill-row">
             <span class="skill-row__key">langs</span>
             <ul class="tags">
@@ -386,33 +395,28 @@
     <!-- ========== Контакты ========== -->
     <section class="section" id="contact">
       <div class="container">
-        <header class="section__head reveal">
-          <p class="section__kicker"><span class="section__num">04</span> contact</p>
-          <h2 class="section__title">контакты</h2>
+        <header class="section__head">
+          <p class="section__no">04 / CONTACT</p>
+          <h2>контакты</h2>
           <p class="section__lead">Открытый канал для разговоров про Rust, движки и геймдев.</p>
         </header>
 
-        <div class="contact reveal">
-          <div class="contact__text">
-            <p class="line"><span class="prompt">blin4ik@hailmary:~$</span> <span class="cmd">mail -s "привет" blin4ik</span></p>
+        <div class="contact">
+          <div class="contact__main">
+            <p class="contact__label">OPEN CHANNEL / 1420.405 MHZ</p>
+            <a class="contact__email" href="mailto:hello@example.com?subject=Привет%21">hello@example.com</a>
             <p class="contact__lead">
               Открыт к разговорам про Rust, движки и геймдев, а также к интересным
               задачам на C и C++. Пишите — отвечаю в течение дня.
             </p>
           </div>
 
-          <div class="contact__actions">
-            <p class="contact__freq">
-              <span class="contact__freq-key">channel</span>
-              <span>1420.405 MHz</span>
-              <span class="contact__freq-note">// hydrogen line · open</span>
-            </p>
-            <!-- TODO: замените адрес почты -->
-            <a class="btn btn--primary" href="mailto:hello@example.com?subject=Привет%21">hello@example.com</a>
-            <button class="btn" id="copy-email" type="button" data-email="hello@example.com">
+          <div class="contact__side">
+            <button class="button button--accent" id="copy-email" type="button" data-email="hello@example.com">
               <span class="copy-email__label">скопировать адрес</span>
             </button>
-            <p class="contact__note" role="status" aria-live="polite" id="copy-status"></p>
+            <p class="contact__note" id="copy-status" role="status" aria-live="polite"></p>
+            <p class="contact__hint">channel 1420.405 MHz // hydrogen line · open</p>
           </div>
         </div>
       </div>
@@ -421,26 +425,11 @@
 
   <footer class="site-footer">
     <div class="container footer__inner">
-      <div class="footer__brand">
-        <span class="footer__mark" aria-hidden="true">
-          <img src="endfield-industries.svg" alt="" width="21" height="21" loading="lazy" decoding="async">
-        </span>
-        <p class="footer__text">
-          <span class="prompt">$</span> exit 0 <span class="footer__sep" aria-hidden="true">·</span>
-          © <span data-year>2026</span> blin4ik
-        </p>
-      </div>
-
-      <p class="footer__strat" aria-hidden="true">
-        <span>↑</span><span>↑</span><span>↓</span><span>↓</span><span>←</span><span>→</span><span>←</span><span>→</span>
-        <span class="footer__strat-label">orbital support</span>
-      </p>
-
+      <p class="footer__text"><span class="prompt">$</span> exit 0 · © <span data-year>2026</span> blin4ik</p>
+      <p class="footer__route">SOL → TAU CETI // 11.9 LY</p>
       <a class="footer__link" href="#top">[ наверх ]</a>
     </div>
   </footer>
-
-  <div class="toast" id="strat-toast" role="status" aria-live="polite"></div>
 
   <script src="assets/js/main.js" defer></script>
 </body>
