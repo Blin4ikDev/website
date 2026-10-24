@@ -41,18 +41,18 @@ python3 -m http.server 8000
 
 | Что | Где |
 | --- | --- |
-| Имя, роль, город, описание | `index.html` (`<title>`, `meta`, `.hero`, `.brand`, `.footer`) |
-| Текст «Обо мне» и цифры | `index.html`, секция `#about` |
+| Имя, роль, описание | `index.html` (`<title>`, `meta`, `.hero`, `.brand`, `.footer`) |
+| Текст «Обо мне» и факты | `index.html`, секция `#about` |
 | Проекты и ссылки на них | `index.html`, секция `#projects` |
 | Навыки | `index.html`, секция `#skills` |
-| E-mail | `mailto:` и `data-email` в секции `#contact` |
-| Соцсети | `href` у ссылок в `.socials` |
+| E-mail | `mailto:` и `data-email` в секции `#contact` (сейчас заглушка `hello@example.com`) |
+| Соцсети | `href` у ссылок в `.socials` (GitHub и Telegram — проверьте ники) |
 | Аватар | заменить `.avatar__inner` на `<img src="assets/img/avatar.jpg" alt="...">` |
 
 Найти все заглушки сразу:
 
 ```bash
-grep -rn "your-username\|hello@example.com\|Александр\|АП" index.html README.md
+grep -rn "hello@example.com\|TODO" index.html README.md
 ```
 
 Если сайт живёт в подпапке (`https://username.github.io/repo/`), поправьте ссылку
