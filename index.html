@@ -5,27 +5,29 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="dark light">
 
-  <title>Blin4ik — Rust/C разработчик, игровые движки</title>
+  <title>Blin4ik — rust / c · игровые движки</title>
   <meta name="description" content="Blin4ik — разработчик на Rust и C. Автор игрового движка на wgpu и winit и рогалика CRISP в духе Factorio.">
   <meta name="author" content="Blin4ik">
-  <meta name="theme-color" content="#070b14">
+  <meta name="theme-color" content="#05080a">
 
   <!-- Open Graph / соцсети -->
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Blin4ik — Rust/C разработчик, игровые движки">
+  <meta property="og:title" content="Blin4ik — rust / c · игровые движки">
   <meta property="og:description" content="Пишу на Rust и C, делаю свой игровой движок на wgpu и winit. Сейчас работаю над CRISP.">
   <meta property="og:locale" content="ru_RU">
 
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%236d8dff'/%3E%3Cstop offset='1' stop-color='%23b388ff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Ctext x='32' y='42' font-family='system-ui, sans-serif' font-size='24' font-weight='700' fill='%23fff' text-anchor='middle'%3EB4%3C/text%3E%3C/svg%3E">
-  <link rel="stylesheet" href="assets/css/styles.css">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23080e0b'/%3E%3Ctext x='32' y='42' font-family='monospace' font-size='22' font-weight='700' fill='%237ee787' text-anchor='middle'%3EB4%3C/text%3E%3Crect x='8' y='8' width='48' height='48' fill='none' stroke='%237ee787' stroke-width='1.5' stroke-dasharray='4 3'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="assets/css/terminal.css">
 
-  <!-- Тема применяется до отрисовки, чтобы не было мигания -->
+  <!-- Тема и флаг «JS доступен» — до отрисовки, чтобы не было мигания -->
   <script>
     (function () {
+      var root = document.documentElement;
+      root.classList.add("js");
       try {
-        var saved = localStorage.getItem('theme');
-        var prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
-        document.documentElement.dataset.theme = saved || (prefersLight ? 'light' : 'dark');
+        var saved = localStorage.getItem("theme");
+        var prefersLight = window.matchMedia("(prefers-color-scheme: light)").matches;
+        root.dataset.theme = saved || (prefersLight ? "light" : "dark");
       } catch (e) { /* localStorage может быть недоступен */ }
     })();
   </script>
@@ -36,37 +38,25 @@
   <header class="site-header" id="site-header">
     <div class="container header__inner">
       <a class="brand" href="#top" aria-label="В начало страницы">
-        <span class="brand__mark" aria-hidden="true">B4</span>
-        <span class="brand__name">Blin4ik</span>
+        <span class="brand__host">blin4ik@tty1</span><span class="brand__path">:~$</span><span class="caret caret--sm" aria-hidden="true"></span>
       </a>
 
       <nav class="nav" id="nav" aria-label="Основная навигация">
         <ul class="nav__list">
-          <li><a class="nav__link" href="#about">Обо мне</a></li>
-          <li><a class="nav__link" href="#projects">Проекты</a></li>
-          <li><a class="nav__link" href="#skills">Навыки</a></li>
-          <li><a class="nav__link" href="#contact">Контакты</a></li>
+          <li><a class="nav__link" href="#about">обо мне</a></li>
+          <li><a class="nav__link" href="#projects">проекты</a></li>
+          <li><a class="nav__link" href="#skills">навыки</a></li>
+          <li><a class="nav__link" href="#contact">контакты</a></li>
         </ul>
       </nav>
 
       <div class="header__actions">
-        <button class="icon-btn" id="theme-toggle" type="button" aria-label="Включить светлую тему">
-          <svg class="icon icon--sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
-            <circle cx="12" cy="12" r="4.2"/>
-            <path d="M12 2.4v2.2M12 19.4v2.2M2.4 12h2.2M19.4 12h2.2M5.2 5.2l1.6 1.6M17.2 17.2l1.6 1.6M18.8 5.2l-1.6 1.6M6.8 17.2l-1.6 1.6"/>
-          </svg>
-          <svg class="icon icon--moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M20.5 14.2A8.6 8.6 0 0 1 9.8 3.5a8.6 8.6 0 1 0 10.7 10.7Z"/>
-          </svg>
+        <button class="tbtn" id="theme-toggle" type="button" aria-label="Переключить тему">
+          <span class="tbtn__key" aria-hidden="true">theme=</span><span id="theme-label">dark</span>
         </button>
-
-        <button class="icon-btn nav-toggle" id="nav-toggle" type="button"
+        <button class="tbtn nav-toggle" id="nav-toggle" type="button"
                 aria-label="Открыть меню" aria-expanded="false" aria-controls="nav">
-          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true">
-            <path class="nav-toggle__top" d="M4 7h16"/>
-            <path class="nav-toggle__middle" d="M4 12h16"/>
-            <path class="nav-toggle__bottom" d="M4 17h16"/>
-          </svg>
+          <span class="tbtn__brackets" aria-hidden="true">[</span><span id="nav-toggle-label">menu</span><span class="tbtn__brackets" aria-hidden="true">]</span>
         </button>
       </div>
     </div>
@@ -75,75 +65,69 @@
   <main id="main">
     <!-- ========== Hero ========== -->
     <section class="hero" id="top">
-      <div class="container hero__inner">
-        <div class="hero__content">
-          <p class="status">
-            <span class="status__dot" aria-hidden="true"></span>
-            Сейчас работаю над CRISP
-          </p>
+      <div class="container">
+        <p class="line boot" style="--d: 0.05s">
+          <span class="prompt">blin4ik@tty1:~$</span> <span class="cmd">whoami</span>
+        </p>
 
-          <h1 class="hero__title">
-            Привет, я <span class="gradient-text">Blin4ik</span>
-          </h1>
-          <p class="hero__role">Rust / C разработчик · игровые движки</p>
-          <p class="hero__lead">
-            Пишу на Rust и C, три года занимаюсь графикой и движками. Делаю собственный
-            движок на wgpu и winit, а на нём — CRISP, рогалик в духе Factorio.
-          </p>
+        <h1 class="sr-only">Blin4ik — Rust/C разработчик, игровые движки</h1>
+        <pre class="ascii boot" style="--d: 0.15s" aria-hidden="true"><span>###  #    #### #  # #  # #### #  #</span><span>#  # #     ##  ## # #  #  ##  # #</span><span>###  #     ##  # ## ####  ##  ##</span><span>#  # #     ##  #  #    #  ##  # #</span><span>###  #### #### #  #    # #### #  #</span></pre>
 
-          <div class="hero__actions">
-            <a class="btn btn--primary" href="#projects">
-              Смотреть проекты
-              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M5 12h14M13 6l6 6-6 6"/>
-              </svg>
-            </a>
-            <a class="btn btn--ghost" href="#contact">Связаться</a>
+        <div class="hero__grid">
+          <div class="hero__text">
+            <p class="line boot" style="--d: 0.25s">
+              <span class="prompt">blin4ik@tty1:~$</span> <span class="cmd">cat role.txt</span>
+            </p>
+            <p class="hero__role boot" style="--d: 0.35s" aria-label="Rust / C разработчик · игровые движки · ВятГУ">
+              <span data-typed aria-hidden="true">Rust / C разработчик · игровые движки · ВятГУ</span><span class="caret" aria-hidden="true"></span>
+            </p>
+
+            <p class="line boot" style="--d: 0.45s">
+              <span class="prompt">blin4ik@tty1:~$</span> <span class="cmd">cat /etc/motd</span>
+            </p>
+            <p class="hero__lead boot" style="--d: 0.55s">
+              Пишу на Rust и C, три года занимаюсь графикой и движками. Делаю собственный
+              движок на wgpu и winit, а на нём — CRISP, рогалик в духе Factorio.
+            </p>
+
+            <div class="hero__actions boot" style="--d: 0.65s">
+              <a class="btn btn--primary" href="#projects">cd projects/</a>
+              <a class="btn" href="#contact">mail blin4ik</a>
+            </div>
+
+            <ul class="socials boot" style="--d: 0.75s" aria-label="Ссылки">
+              <li>
+                <!-- TODO: проверьте ник -->
+                <a class="social" href="https://github.com/Blin4ik" target="_blank" rel="noopener noreferrer">github</a>
+              </li>
+              <li>
+                <!-- TODO: проверьте ник -->
+                <a class="social" href="https://t.me/Blin4ik" target="_blank" rel="noopener noreferrer">telegram</a>
+              </li>
+              <li>
+                <!-- TODO: замените адрес почты -->
+                <a class="social" href="mailto:hello@example.com">mail</a>
+              </li>
+            </ul>
           </div>
 
-          <ul class="socials" aria-label="Социальные сети">
-            <li>
-              <!-- TODO: проверьте ник -->
-              <a class="social" href="https://github.com/Blin4ik" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-                <svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                  <path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49 0-.24-.01-1.04-.01-1.89-2.78.62-3.37-1.21-3.37-1.21-.45-1.18-1.11-1.49-1.11-1.49-.91-.64.07-.63.07-.63 1 .07 1.53 1.06 1.53 1.06.89 1.57 2.34 1.12 2.91.85.09-.66.35-1.12.63-1.37-2.22-.26-4.56-1.14-4.56-5.06 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.31.1-2.73 0 0 .84-.28 2.75 1.05a9.4 9.4 0 0 1 5 0c1.91-1.33 2.75-1.05 2.75-1.05.55 1.42.2 2.47.1 2.73.64.72 1.03 1.63 1.03 2.75 0 3.93-2.35 4.79-4.58 5.05.36.32.68.94.68 1.9 0 1.37-.01 2.48-.01 2.82 0 .27.18.6.69.49A10.02 10.02 0 0 0 22 12.25C22 6.58 17.52 2 12 2Z"/>
-                </svg>
-              </a>
-            </li>
-            <li>
-              <!-- TODO: проверьте ник -->
-              <a class="social" href="https://t.me/Blin4ik" target="_blank" rel="noopener noreferrer" aria-label="Telegram">
-                <svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                  <path d="M21.9 4.3 18.8 19c-.2 1-.9 1.2-1.7.8l-4.6-3.4-2.2 2.1c-.2.2-.5.4-.9.4l.3-4.6 8.3-7.5c.4-.3-.1-.5-.6-.2L7.2 13.1l-4.5-1.4c-1-.3-1-1 .2-1.4l17.6-6.8c.8-.3 1.5.2 1.4 1.1Z"/>
-                </svg>
-              </a>
-            </li>
-            <li>
-              <!-- TODO: замените адрес почты -->
-              <a class="social" href="mailto:hello@example.com" aria-label="Написать на почту">
-                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <rect x="3" y="5" width="18" height="14" rx="2.5"/>
-                  <path d="m3.5 7.5 8.5 5.6 8.5-5.6"/>
-                </svg>
-              </a>
-            </li>
-          </ul>
-        </div>
-
-        <div class="hero__visual" aria-hidden="true">
-          <div class="avatar">
-            <!-- TODO: можно заменить блок на <img src="assets/img/avatar.jpg" alt="Blin4ik"> -->
-            <div class="avatar__inner">B4</div>
-          </div>
-
-          <div class="float-card float-card--exp">
-            <span class="float-card__value">3+</span>
-            <span class="float-card__label">года с Rust и Vulkan</span>
-          </div>
-          <div class="float-card float-card--stack">
-            <span class="float-card__chip">&lt;/&gt;</span>
-            <span class="float-card__label">Rust · wgpu</span>
-          </div>
+          <aside class="sysinfo boot" style="--d: 0.5s" aria-label="Системная информация">
+            <p class="sysinfo__head">
+              <span class="sysinfo__user">blin4ik@dev</span>
+              <span class="sysinfo__rule" aria-hidden="true"></span>
+            </p>
+            <dl class="sysinfo__list">
+              <div><dt>os</dt><dd>linux · tty</dd></div>
+              <div><dt>shell</dt><dd>zsh</dd></div>
+              <div><dt>langs</dt><dd>rust, c, c++, go</dd></div>
+              <div><dt>gpu</dt><dd>wgpu / vulkan</dd></div>
+              <div><dt>engine</dt><dd>wgpu + winit</dd></div>
+              <div><dt>now</dt><dd>CRISP</dd></div>
+              <div><dt>uptime</dt><dd>3 years</dd></div>
+              <div><dt>time</dt><dd data-clock>--:--:--</dd></div>
+            </dl>
+            <p class="sysinfo__foot"><span class="ok">[ ok ]</span> 0 warnings · 0 errors</p>
+          </aside>
         </div>
       </div>
     </section>
@@ -152,12 +136,12 @@
     <section class="section" id="about">
       <div class="container">
         <header class="section__head reveal">
-          <p class="eyebrow">Обо мне</p>
-          <h2 class="section__title">Ближе к железу</h2>
+          <p class="section__kicker"><span class="section__num">01</span> about</p>
+          <h2 class="section__title">обо мне</h2>
         </header>
 
         <div class="about">
-          <div class="about__text reveal">
+          <div class="prose reveal">
             <p>
               Последние три года занимаюсь низкоуровневой разработкой: Rust, C и C++,
               графика на Vulkan и собственные игровые движки. Сейчас пишу движок
@@ -172,20 +156,24 @@
             </p>
           </div>
 
-          <ul class="facts reveal">
-            <li class="fact">
-              <span class="fact__value">3+</span>
-              <span class="fact__label">года с Rust и графикой</span>
-            </li>
-            <li class="fact">
-              <span class="fact__value">CRISP</span>
-              <span class="fact__label">свой движок и своя игра</span>
-            </li>
-            <li class="fact">
-              <span class="fact__value">ПМиИ</span>
-              <span class="fact__label">ВятГУ, прикладная математика</span>
-            </li>
-          </ul>
+          <dl class="facts reveal">
+            <div>
+              <dt>опыт</dt>
+              <dd>3+ года · rust / vulkan</dd>
+            </div>
+            <div>
+              <dt>сейчас</dt>
+              <dd>CRISP — свой движок и своя игра</dd>
+            </div>
+            <div>
+              <dt>учёба</dt>
+              <dd>ВятГУ · прикладная математика и информатика</dd>
+            </div>
+            <div>
+              <dt>железо</dt>
+              <dd>C и Rust под микроконтроллеры</dd>
+            </div>
+          </dl>
         </div>
       </div>
     </section>
@@ -194,106 +182,87 @@
     <section class="section" id="projects">
       <div class="container">
         <header class="section__head reveal">
-          <p class="eyebrow">Проекты</p>
-          <h2 class="section__title">Что я делаю</h2>
+          <p class="section__kicker"><span class="section__num">02</span> projects</p>
+          <h2 class="section__title">проекты</h2>
           <p class="section__lead">Игра, движок под неё и инструменты вокруг.</p>
         </header>
 
         <div class="projects">
-          <article class="card project reveal">
-            <div class="project__top">
-              <span class="project__icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M4 20V9l5-5v16M9 20V4l6 3v13M15 20V8l5 2v10"/>
-                  <path d="M2.5 20h19"/>
-                </svg>
-              </span>
-              <div class="project__links">
-                <!-- TODO: укажите ссылку на репозиторий CRISP -->
-                <a href="https://github.com/Blin4ik" target="_blank" rel="noopener noreferrer" aria-label="Репозиторий CRISP на GitHub">
-                  <svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                    <path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49 0-.24-.01-1.04-.01-1.89-2.78.62-3.37-1.21-3.37-1.21-.45-1.18-1.11-1.49-1.11-1.49-.91-.64.07-.63.07-.63 1 .07 1.53 1.06 1.53 1.06.89 1.57 2.34 1.12 2.91.85.09-.66.35-1.12.63-1.37-2.22-.26-4.56-1.14-4.56-5.06 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.31.1-2.73 0 0 .84-.28 2.75 1.05a9.4 9.4 0 0 1 5 0c1.91-1.33 2.75-1.05 2.75-1.05.55 1.42.2 2.47.1 2.73.64.72 1.03 1.63 1.03 2.75 0 3.93-2.35 4.79-4.58 5.05.36.32.68.94.68 1.9 0 1.37-.01 2.48-.01 2.82 0 .27.18.6.69.49A10.02 10.02 0 0 0 22 12.25C22 6.58 17.52 2 12 2Z"/>
-                  </svg>
-                </a>
-              </div>
+          <article class="win reveal">
+            <div class="win__bar">
+              <span class="win__title">CRISP</span>
+              <span class="win__meta">~/projects/crisp</span>
+              <!-- TODO: укажите ссылку на репозиторий CRISP -->
+              <a class="win__link" href="https://github.com/Blin4ik" target="_blank" rel="noopener noreferrer">[src]</a>
             </div>
-            <h3 class="project__title">CRISP</h3>
-            <p class="project__text">
-              Рогалик в духе Factorio: забеги, автоматизация и производственные цепочки,
-              только с процедурной генерацией. Работает на собственном движке.
-            </p>
-            <ul class="tags">
-              <li>Rust</li>
-              <li>wgpu</li>
-              <li>GameDev</li>
-            </ul>
+            <div class="win__body">
+              <p class="win__text">
+                Рогалик в духе Factorio: забеги, автоматизация и производственные цепочки,
+                только с процедурной генерацией. Работает на собственном движке.
+              </p>
+              <ul class="tags">
+                <li>rust</li>
+                <li>wgpu</li>
+                <li>gamedev</li>
+              </ul>
+            </div>
           </article>
 
-          <article class="card project reveal">
-            <div class="project__top">
-              <span class="project__icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="6.5" y="6.5" width="11" height="11" rx="2"/>
-                  <path d="M9.5 3v3.5M14.5 3v3.5M9.5 17.5V21M14.5 17.5V21M3 9.5h3.5M3 14.5h3.5M17.5 9.5H21M17.5 14.5H21"/>
-                </svg>
-              </span>
+          <article class="win reveal">
+            <div class="win__bar">
+              <span class="win__title">engine</span>
+              <span class="win__meta">~/projects/core</span>
             </div>
-            <h3 class="project__title">Игровой движок</h3>
-            <p class="project__text">
-              Узкоспециализированный движок под CRISP: окно и ввод на winit, рендер
-              на wgpu, свой игровой цикл, сцены и система ресурсов. Минимум абстракций,
-              максимум контроля.
-            </p>
-            <ul class="tags">
-              <li>Rust</li>
-              <li>wgpu</li>
-              <li>winit</li>
-              <li>Vulkan</li>
-            </ul>
+            <div class="win__body">
+              <p class="win__text">
+                Узкоспециализированный движок под CRISP: окно и ввод на winit, рендер
+                на wgpu, свой игровой цикл, сцены и система ресурсов. Минимум абстракций,
+                максимум контроля.
+              </p>
+              <ul class="tags">
+                <li>rust</li>
+                <li>wgpu</li>
+                <li>winit</li>
+                <li>vulkan</li>
+              </ul>
+            </div>
           </article>
 
-          <article class="card project reveal">
-            <div class="project__top">
-              <span class="project__icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M10 4.5h4a1.5 1.5 0 0 1 1.5 1.5v1.2a1.3 1.3 0 0 0 2.1 1l1-.7a1.5 1.5 0 0 1 2 0l1.4 1.4a1.5 1.5 0 0 1 0 2.1l-1 .9a1.3 1.3 0 0 0 0 2.1l1 .9a1.5 1.5 0 0 1 0 2l-1.4 1.5a1.5 1.5 0 0 1-2 0l-1-.7a1.3 1.3 0 0 0-2.1 1v1.2a1.5 1.5 0 0 1-1.5 1.5h-2a1.5 1.5 0 0 1-1.5-1.5v-1.2a1.3 1.3 0 0 0-2.1-1l-1 .7a1.5 1.5 0 0 1-2 0L4.3 16.6a1.5 1.5 0 0 1 0-2l1-.9a1.3 1.3 0 0 0 0-2.1l-1-.9a1.5 1.5 0 0 1 0-2.1L5.7 7a1.5 1.5 0 0 1 2 0l1 .7a1.3 1.3 0 0 0 2.1-1V6a1.5 1.5 0 0 1 1.5-1.5Z"/>
-                  <circle cx="12" cy="11.8" r="2.4"/>
-                </svg>
-              </span>
+          <article class="win reveal">
+            <div class="win__bar">
+              <span class="win__title">godot.ext</span>
+              <span class="win__meta">~/projects/godot-ext</span>
             </div>
-            <h3 class="project__title">Godot Extensions</h3>
-            <p class="project__text">
-              Расширения для Godot на C++ и Qt: собственные узлы, инструменты редактора
-              и обвязка для GDScript. Иногда проще написать плагин, чем мириться
-              с ограничениями движка.
-            </p>
-            <ul class="tags">
-              <li>C++</li>
-              <li>Qt</li>
-              <li>GDScript</li>
-            </ul>
+            <div class="win__body">
+              <p class="win__text">
+                Расширения для Godot на C++ и Qt: собственные узлы, инструменты редактора
+                и обвязка для GDScript. Иногда проще написать плагин, чем мириться
+                с ограничениями движка.
+              </p>
+              <ul class="tags">
+                <li>c++</li>
+                <li>qt</li>
+                <li>gdscript</li>
+              </ul>
+            </div>
           </article>
 
-          <article class="card project reveal">
-            <div class="project__top">
-              <span class="project__icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M12 3v3M12 18v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M3 12h3M18 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/>
-                  <circle cx="12" cy="12" r="3.4"/>
-                  <path d="M8.5 21h7M12 17v4"/>
-                </svg>
-              </span>
+          <article class="win reveal">
+            <div class="win__bar">
+              <span class="win__title">mcu</span>
+              <span class="win__meta">~/projects/embedded</span>
             </div>
-            <h3 class="project__title">Микроконтроллеры</h3>
-            <p class="project__text">
-              Работа с железом на C и Rust: периферия, прерывания, тайминги. Небольшие
-              прошивки и эксперименты, где видно каждый байт и такт.
-            </p>
-            <ul class="tags">
-              <li>C</li>
-              <li>Rust</li>
-              <li>Embedded</li>
-            </ul>
+            <div class="win__body">
+              <p class="win__text">
+                Работа с железом на C и Rust: периферия, прерывания, тайминги. Небольшие
+                прошивки и эксперименты, где видно каждый байт и такт.
+              </p>
+              <ul class="tags">
+                <li>c</li>
+                <li>rust</li>
+                <li>embedded</li>
+              </ul>
+            </div>
           </article>
         </div>
       </div>
@@ -303,42 +272,40 @@
     <section class="section" id="skills">
       <div class="container">
         <header class="section__head reveal">
-          <p class="eyebrow">Навыки</p>
-          <h2 class="section__title">Чем я пользуюсь</h2>
+          <p class="section__kicker"><span class="section__num">03</span> skills</p>
+          <h2 class="section__title">навыки</h2>
         </header>
 
-        <div class="skills">
-          <article class="card skill-group reveal">
-            <h3 class="skill-group__title">Языки</h3>
-            <ul class="tags tags--lg">
-              <li>Rust</li>
-              <li>C</li>
-              <li>C++</li>
-              <li>Go</li>
-              <li>GDScript</li>
+        <div class="skills reveal">
+          <div class="skill-row">
+            <span class="skill-row__key">langs</span>
+            <ul class="tags">
+              <li>rust</li>
+              <li>c</li>
+              <li>c++</li>
+              <li>go</li>
+              <li>gdscript</li>
             </ul>
-          </article>
-
-          <article class="card skill-group reveal">
-            <h3 class="skill-group__title">Графика и движки</h3>
-            <ul class="tags tags--lg">
+          </div>
+          <div class="skill-row">
+            <span class="skill-row__key">graphics</span>
+            <ul class="tags">
               <li>wgpu</li>
               <li>winit</li>
-              <li>Vulkan</li>
-              <li>Godot</li>
-              <li>Qt</li>
+              <li>vulkan</li>
+              <li>godot</li>
+              <li>qt</li>
             </ul>
-          </article>
-
-          <article class="card skill-group reveal">
-            <h3 class="skill-group__title">И рядом</h3>
-            <ul class="tags tags--lg">
-              <li>Embedded</li>
-              <li>Микроконтроллеры</li>
-              <li>Git</li>
-              <li>Linux</li>
+          </div>
+          <div class="skill-row">
+            <span class="skill-row__key">also</span>
+            <ul class="tags">
+              <li>embedded</li>
+              <li>микроконтроллеры</li>
+              <li>git</li>
+              <li>linux</li>
             </ul>
-          </article>
+          </div>
         </div>
       </div>
     </section>
@@ -346,10 +313,14 @@
     <!-- ========== Контакты ========== -->
     <section class="section" id="contact">
       <div class="container">
+        <header class="section__head reveal">
+          <p class="section__kicker"><span class="section__num">04</span> contact</p>
+          <h2 class="section__title">контакты</h2>
+        </header>
+
         <div class="contact reveal">
           <div class="contact__text">
-            <p class="eyebrow">Контакты</p>
-            <h2 class="section__title">Давайте что-нибудь сделаем</h2>
+            <p class="line"><span class="prompt">blin4ik@tty1:~$</span> <span class="cmd">mail -s "привет" blin4ik</span></p>
             <p class="contact__lead">
               Открыт к разговорам про Rust, движки и геймдев, а также к интересным
               задачам на C и C++. Пишите — отвечаю в течение дня.
@@ -358,22 +329,10 @@
 
           <div class="contact__actions">
             <!-- TODO: замените адрес почты -->
-            <a class="btn btn--primary btn--lg" href="mailto:hello@example.com?subject=Привет%21">
-              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <rect x="3" y="5" width="18" height="14" rx="2.5"/>
-                <path d="m3.5 7.5 8.5 5.6 8.5-5.6"/>
-              </svg>
-              hello@example.com
-            </a>
-
-            <button class="btn btn--ghost btn--lg" id="copy-email" type="button" data-email="hello@example.com">
-              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <rect x="9" y="9" width="11" height="11" rx="2.5"/>
-                <path d="M15 5.5A2.5 2.5 0 0 0 12.5 3h-7A2.5 2.5 0 0 0 3 5.5v7A2.5 2.5 0 0 0 5.5 15"/>
-              </svg>
-              <span class="copy-email__label">Скопировать адрес</span>
+            <a class="btn btn--primary" href="mailto:hello@example.com?subject=Привет%21">hello@example.com</a>
+            <button class="btn" id="copy-email" type="button" data-email="hello@example.com">
+              <span class="copy-email__label">скопировать адрес</span>
             </button>
-
             <p class="contact__note" role="status" aria-live="polite" id="copy-status"></p>
           </div>
         </div>
@@ -384,14 +343,10 @@
   <footer class="site-footer">
     <div class="container footer__inner">
       <p class="footer__text">
-        © <span data-year>2026</span> Blin4ik. Сделано вручную, без фреймворков.
+        <span class="prompt">$</span> exit 0 <span class="footer__sep" aria-hidden="true">·</span>
+        © <span data-year>2026</span> blin4ik
       </p>
-      <a class="footer__link" href="#top">
-        Наверх
-        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M12 19V5M6 11l6-6 6 6"/>
-        </svg>
-      </a>
+      <a class="footer__link" href="#top">[ наверх ]</a>
     </div>
   </footer>
 

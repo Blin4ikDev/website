@@ -9,14 +9,16 @@
 
   /* ---------- Тема ---------- */
   var themeToggle = document.getElementById("theme-toggle");
+  var themeLabel = document.getElementById("theme-label");
   var themeColorMeta = document.querySelector('meta[name="theme-color"]');
 
   function applyTheme(theme) {
     root.dataset.theme = theme;
     var isDark = theme === "dark";
 
+    if (themeLabel) themeLabel.textContent = isDark ? "dark" : "light";
     if (themeColorMeta) {
-      themeColorMeta.setAttribute("content", isDark ? "#070b14" : "#f5f7fd");
+      themeColorMeta.setAttribute("content", isDark ? "#05080a" : "#f1efe5");
     }
     if (themeToggle) {
       themeToggle.setAttribute("aria-label", isDark ? "Включить светлую тему" : "Включить тёмную тему");
@@ -52,12 +54,14 @@
   var header = document.getElementById("site-header");
   var nav = document.getElementById("nav");
   var navToggle = document.getElementById("nav-toggle");
+  var navToggleLabel = document.getElementById("nav-toggle-label");
 
   function setMenu(open) {
     if (!nav || !navToggle) return;
     nav.classList.toggle("is-open", open);
     navToggle.setAttribute("aria-expanded", String(open));
     navToggle.setAttribute("aria-label", open ? "Закрыть меню" : "Открыть меню");
+    if (navToggleLabel) navToggleLabel.textContent = open ? "close" : "menu";
   }
 
   if (nav && navToggle) {
@@ -82,7 +86,7 @@
     });
 
     // При переходе на десктоп сбрасываем состояние меню
-    window.matchMedia("(min-width: 861px)").addEventListener("change", function (event) {
+    window.matchMedia("(min-width: 761px)").addEventListener("change", function (event) {
       if (event.matches) setMenu(false);
     });
   }
@@ -161,6 +165,44 @@
     });
   }
 
+  /* ---------- Печатная машинка в hero ---------- */
+  var typed = document.querySelector("[data-typed]");
+
+  if (typed && !prefersReducedMotion.matches) {
+    var fullText = typed.getAttribute("data-typed") || typed.textContent;
+    var index = 0;
+
+    typed.textContent = "";
+
+    var typeNext = function () {
+      typed.textContent = fullText.slice(0, index);
+      index += 1;
+
+      if (index <= fullText.length) {
+        // Небольшая «неровность» скорости, как у настоящего ввода
+        window.setTimeout(typeNext, 26 + Math.random() * 46);
+      }
+    };
+
+    window.setTimeout(typeNext, 480);
+  }
+
+  /* ---------- Часы в sysinfo ---------- */
+  var clock = document.querySelector("[data-clock]");
+
+  if (clock) {
+    var renderClock = function () {
+      var now = new Date();
+      var pad = function (value) {
+        return value < 10 ? "0" + value : String(value);
+      };
+      clock.textContent = pad(now.getHours()) + ":" + pad(now.getMinutes()) + ":" + pad(now.getSeconds());
+    };
+
+    renderClock();
+    window.setInterval(renderClock, 1000);
+  }
+
   /* ---------- Копирование e-mail ---------- */
   var copyButton = document.getElementById("copy-email");
   var copyStatus = document.getElementById("copy-status");
@@ -174,7 +216,7 @@
     window.clearTimeout(copyTimer);
     copyTimer = window.setTimeout(function () {
       copyStatus.classList.remove("is-visible");
-      if (copyLabel) copyLabel.textContent = "Скопировать адрес";
+      if (copyLabel) copyLabel.textContent = "скопировать адрес";
     }, 2600);
   }
 
@@ -189,11 +231,11 @@
 
       copy
         .then(function () {
-          if (copyLabel) copyLabel.textContent = "Скопировано!";
-          showCopyStatus("Адрес " + email + " скопирован");
+          if (copyLabel) copyLabel.textContent = "скопировано";
+          showCopyStatus("адрес " + email + " скопирован");
         })
         .catch(function () {
-          showCopyStatus("Не удалось скопировать — адрес: " + email);
+          showCopyStatus("не удалось скопировать — адрес: " + email);
         });
     });
   }
