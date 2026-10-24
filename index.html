@@ -8,7 +8,7 @@
   <title>Blin4ik — rust / c · игровые движки</title>
   <meta name="description" content="Blin4ik — разработчик на Rust и C. Автор игрового движка на wgpu и winit и рогалика CRISP в духе Factorio.">
   <meta name="author" content="Blin4ik">
-  <meta name="theme-color" content="#05080a">
+  <meta name="theme-color" content="#04070d">
 
   <!-- Open Graph / соцсети -->
   <meta property="og:type" content="website">
@@ -16,7 +16,7 @@
   <meta property="og:description" content="Пишу на Rust и C, делаю свой игровой движок на wgpu и winit. Сейчас работаю над CRISP.">
   <meta property="og:locale" content="ru_RU">
 
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23080e0b'/%3E%3Ctext x='32' y='42' font-family='monospace' font-size='22' font-weight='700' fill='%237ee787' text-anchor='middle'%3EB4%3C/text%3E%3Crect x='8' y='8' width='48' height='48' fill='none' stroke='%237ee787' stroke-width='1.5' stroke-dasharray='4 3'/%3E%3C/svg%3E">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%2304070d'/%3E%3Ctext x='32' y='42' font-family='monospace' font-size='22' font-weight='700' fill='%236ff2ff' text-anchor='middle'%3EB4%3C/text%3E%3Crect x='8' y='8' width='48' height='48' fill='none' stroke='%23ffc857' stroke-width='1.5' stroke-dasharray='4 3'/%3E%3C/svg%3E">
   <link rel="stylesheet" href="assets/css/terminal.css">
 
   <!-- Тема и флаг «JS доступен» — до отрисовки, чтобы не было мигания -->
@@ -35,11 +35,31 @@
 <body>
   <a class="skip-link" href="#main">Перейти к содержимому</a>
 
+  <!-- Декоративная космическая сцена -->
+  <div class="cosmos" aria-hidden="true">
+    <canvas class="cosmos__stars" id="starfield"></canvas>
+    <div class="cosmos__grid"></div>
+    <div class="cosmos__planet"></div>
+    <div class="cosmos__beam"></div>
+    <div class="cosmos__vignette"></div>
+  </div>
+
   <header class="site-header" id="site-header">
     <div class="container header__inner">
       <a class="brand" href="#top" aria-label="В начало страницы">
-        <span class="brand__host">blin4ik@tty1</span><span class="brand__path">:~$</span><span class="caret caret--sm" aria-hidden="true"></span>
+        <span class="brand__insignia">
+          <img src="endfield-industries.svg" alt="" width="26" height="26" decoding="async">
+        </span>
+        <span class="brand__text">
+          <span class="brand__host">blin4ik@hailmary</span><span class="brand__path">:~$</span>
+        </span>
+        <span class="caret caret--sm" aria-hidden="true"></span>
       </a>
+
+      <p class="header__signal" aria-hidden="true">
+        <span class="signal__bars"><span></span><span></span><span></span><span></span></span>
+        <span>link</span>
+      </p>
 
       <nav class="nav" id="nav" aria-label="Основная навигация">
         <ul class="nav__list">
@@ -66,36 +86,41 @@
     <!-- ========== Hero ========== -->
     <section class="hero" id="top">
       <div class="container">
-        <p class="line boot" style="--d: 0.05s">
-          <span class="prompt">blin4ik@tty1:~$</span> <span class="cmd">whoami</span>
-        </p>
-
-        <h1 class="sr-only">Blin4ik — Rust/C разработчик, игровые движки</h1>
-        <pre class="ascii boot" style="--d: 0.15s" aria-hidden="true"><span>###  #    #### #  # #  # #### #  #</span><span>#  # #     ##  ## # #  #  ##  # #</span><span>###  #     ##  # ## ####  ##  ##</span><span>#  # #     ##  #  #    #  ##  # #</span><span>###  #### #### #  #    # #### #  #</span></pre>
+        <div class="hero__top boot" style="--d: 0.05s">
+          <p class="hero__callsign"><span class="hero__tag">mission // personal</span> blin4ik</p>
+          <p class="hero__bracket">SOL <span>→</span> TAU CETI</p>
+        </div>
 
         <div class="hero__grid">
           <div class="hero__text">
-            <p class="line boot" style="--d: 0.25s">
-              <span class="prompt">blin4ik@tty1:~$</span> <span class="cmd">cat role.txt</span>
+            <p class="line boot" style="--d: 0.1s">
+              <span class="prompt">blin4ik@hailmary:~$</span> <span class="cmd">whoami</span>
             </p>
-            <p class="hero__role boot" style="--d: 0.35s" aria-label="Rust / C разработчик · игровые движки · ВятГУ">
+
+            <h1 class="sr-only">Blin4ik — Rust/C разработчик, игровые движки</h1>
+            <pre class="ascii boot" style="--d: 0.18s" aria-hidden="true"><span>###  #    #### #  # #  # #### #  #</span><span>#  # #     ##  ## # #  #  ##  # #</span><span>###  #     ##  # ## ####  ##  ##</span><span>#  # #     ##  #  #    #  ##  # #</span><span>###  #### #### #  #    # #### #  #</span></pre>
+
+            <p class="line boot" style="--d: 0.26s">
+              <span class="prompt">blin4ik@hailmary:~$</span> <span class="cmd">cat role.txt</span>
+            </p>
+            <p class="hero__role boot" style="--d: 0.34s" aria-label="Rust / C разработчик · игровые движки · ВятГУ">
               <span data-typed aria-hidden="true">Rust / C разработчик · игровые движки · ВятГУ</span><span class="caret" aria-hidden="true"></span>
             </p>
 
-            <p class="line boot" style="--d: 0.45s">
-              <span class="prompt">blin4ik@tty1:~$</span> <span class="cmd">cat /etc/motd</span>
+            <p class="line boot" style="--d: 0.42s">
+              <span class="prompt">blin4ik@hailmary:~$</span> <span class="cmd">cat /etc/motd</span>
             </p>
-            <p class="hero__lead boot" style="--d: 0.55s">
+            <p class="hero__lead boot" style="--d: 0.5s">
               Пишу на Rust и C, три года занимаюсь графикой и движками. Делаю собственный
               движок на wgpu и winit, а на нём — CRISP, рогалик в духе Factorio.
             </p>
 
-            <div class="hero__actions boot" style="--d: 0.65s">
+            <div class="hero__actions boot" style="--d: 0.58s">
               <a class="btn btn--primary" href="#projects">cd projects/</a>
               <a class="btn" href="#contact">mail blin4ik</a>
             </div>
 
-            <ul class="socials boot" style="--d: 0.75s" aria-label="Ссылки">
+            <ul class="socials boot" style="--d: 0.66s" aria-label="Ссылки">
               <li>
                 <!-- TODO: проверьте ник -->
                 <a class="social" href="https://github.com/Blin4ik" target="_blank" rel="noopener noreferrer">github</a>
@@ -111,23 +136,48 @@
             </ul>
           </div>
 
-          <aside class="sysinfo boot" style="--d: 0.5s" aria-label="Системная информация">
-            <p class="sysinfo__head">
-              <span class="sysinfo__user">blin4ik@dev</span>
-              <span class="sysinfo__rule" aria-hidden="true"></span>
-            </p>
-            <dl class="sysinfo__list">
-              <div><dt>os</dt><dd>linux · tty</dd></div>
-              <div><dt>shell</dt><dd>zsh</dd></div>
-              <div><dt>langs</dt><dd>rust, c, c++, go</dd></div>
-              <div><dt>gpu</dt><dd>wgpu / vulkan</dd></div>
-              <div><dt>engine</dt><dd>wgpu + winit</dd></div>
-              <div><dt>now</dt><dd>CRISP</dd></div>
-              <div><dt>uptime</dt><dd>3 years</dd></div>
-              <div><dt>time</dt><dd data-clock>--:--:--</dd></div>
-            </dl>
-            <p class="sysinfo__foot"><span class="ok">[ ok ]</span> 0 warnings · 0 errors</p>
-          </aside>
+          <div class="hero__panel boot" style="--d: 0.44s">
+            <figure class="flightplan" aria-labelledby="flightplan-title">
+              <figcaption class="flightplan__head" id="flightplan-title">
+                <span class="flightplan__code">flight plan // crisp-01</span>
+                <span class="flightplan__status">active</span>
+              </figcaption>
+
+              <div class="flightplan__chart">
+                <img src="hail-mary.webp" alt="Эмблема миссии Hail Mary" width="855" height="855" decoding="async">
+                <span class="flightplan__sweep" aria-hidden="true"></span>
+                <span class="flightplan__reticle flightplan__reticle--a" aria-hidden="true"></span>
+                <span class="flightplan__reticle flightplan__reticle--b" aria-hidden="true"></span>
+                <span class="flightplan__axis flightplan__axis--x" aria-hidden="true">X</span>
+                <span class="flightplan__axis flightplan__axis--y" aria-hidden="true">Y</span>
+              </div>
+
+              <dl class="flightplan__meta">
+                <div><dt>route</dt><dd>SOL → TAU CETI</dd></div>
+                <div><dt>drive</dt><dd>astrophage · 11.9 ly</dd></div>
+                <div><dt>origin</dt><dd>Вятка · 58.60°N 49.66°E</dd></div>
+              </dl>
+            </figure>
+
+            <aside class="sysinfo" aria-label="Телеметрия оператора">
+              <p class="sysinfo__head">
+                <span class="sysinfo__user">blin4ik@dev</span>
+                <span class="sysinfo__rule" aria-hidden="true"></span>
+                <span class="sysinfo__ping">[ ok ]</span>
+              </p>
+              <dl class="sysinfo__list">
+                <div><dt>os</dt><dd>linux · tty</dd></div>
+                <div><dt>shell</dt><dd>zsh</dd></div>
+                <div><dt>langs</dt><dd>rust, c, c++, go</dd></div>
+                <div><dt>gpu</dt><dd>wgpu / vulkan</dd></div>
+                <div><dt>engine</dt><dd>wgpu + winit</dd></div>
+                <div><dt>now</dt><dd>CRISP</dd></div>
+                <div><dt>uptime</dt><dd>3 years</dd></div>
+                <div><dt>time</dt><dd data-clock>--:--:--</dd></div>
+              </dl>
+              <p class="sysinfo__foot"><span class="ok">[ ok ]</span> 0 warnings · 0 errors</p>
+            </aside>
+          </div>
         </div>
       </div>
     </section>
@@ -138,6 +188,7 @@
         <header class="section__head reveal">
           <p class="section__kicker"><span class="section__num">01</span> about</p>
           <h2 class="section__title">обо мне</h2>
+          <p class="section__lead">Оператор на связи. Ниже — краткая сводка и рабочее досье.</p>
         </header>
 
         <div class="about">
@@ -156,24 +207,38 @@
             </p>
           </div>
 
-          <dl class="facts reveal">
-            <div>
-              <dt>опыт</dt>
-              <dd>3+ года · rust / vulkan</dd>
-            </div>
-            <div>
-              <dt>сейчас</dt>
-              <dd>CRISP — свой движок и своя игра</dd>
-            </div>
-            <div>
-              <dt>учёба</dt>
-              <dd>ВятГУ · прикладная математика и информатика</dd>
-            </div>
-            <div>
-              <dt>железо</dt>
-              <dd>C и Rust под микроконтроллеры</dd>
-            </div>
-          </dl>
+          <div class="dossier reveal">
+            <p class="dossier__head">
+              <span>operator dossier</span>
+              <span class="dossier__id">B4-07</span>
+            </p>
+            <dl class="facts">
+              <div>
+                <dt>позывной</dt>
+                <dd>blin4ik</dd>
+              </div>
+              <div>
+                <dt>станция</dt>
+                <dd>Вятка · 58.60°N 49.66°E</dd>
+              </div>
+              <div>
+                <dt>опыт</dt>
+                <dd>3+ года · rust / vulkan</dd>
+              </div>
+              <div>
+                <dt>сейчас</dt>
+                <dd>CRISP — свой движок и своя игра</dd>
+              </div>
+              <div>
+                <dt>учёба</dt>
+                <dd>ВятГУ · прикладная математика и информатика</dd>
+              </div>
+              <div>
+                <dt>железо</dt>
+                <dd>C и Rust под микроконтроллеры</dd>
+              </div>
+            </dl>
+          </div>
         </div>
       </div>
     </section>
@@ -196,6 +261,7 @@
               <a class="win__link" href="https://github.com/Blin4ik" target="_blank" rel="noopener noreferrer">[src]</a>
             </div>
             <div class="win__body">
+              <p class="win__status"><span class="win__dot" aria-hidden="true"></span>active // flight</p>
               <p class="win__text">
                 Рогалик в духе Factorio: забеги, автоматизация и производственные цепочки,
                 только с процедурной генерацией. Работает на собственном движке.
@@ -214,6 +280,7 @@
               <span class="win__meta">~/projects/core</span>
             </div>
             <div class="win__body">
+              <p class="win__status"><span class="win__dot" aria-hidden="true"></span>core // stable</p>
               <p class="win__text">
                 Узкоспециализированный движок под CRISP: окно и ввод на winit, рендер
                 на wgpu, свой игровой цикл, сцены и система ресурсов. Минимум абстракций,
@@ -234,6 +301,7 @@
               <span class="win__meta">~/projects/godot-ext</span>
             </div>
             <div class="win__body">
+              <p class="win__status"><span class="win__dot" aria-hidden="true"></span>aux // linked</p>
               <p class="win__text">
                 Расширения для Godot на C++ и Qt: собственные узлы, инструменты редактора
                 и обвязка для GDScript. Иногда проще написать плагин, чем мириться
@@ -253,6 +321,7 @@
               <span class="win__meta">~/projects/embedded</span>
             </div>
             <div class="win__body">
+              <p class="win__status"><span class="win__dot" aria-hidden="true"></span>ground // tested</p>
               <p class="win__text">
                 Работа с железом на C и Rust: периферия, прерывания, тайминги. Небольшие
                 прошивки и эксперименты, где видно каждый байт и такт.
@@ -274,6 +343,7 @@
         <header class="section__head reveal">
           <p class="section__kicker"><span class="section__num">03</span> skills</p>
           <h2 class="section__title">навыки</h2>
+          <p class="section__lead">Бортовые системы, которые уже проходят проверку.</p>
         </header>
 
         <div class="skills reveal">
@@ -286,6 +356,7 @@
               <li>go</li>
               <li>gdscript</li>
             </ul>
+            <span class="skill-row__status">nominal</span>
           </div>
           <div class="skill-row">
             <span class="skill-row__key">graphics</span>
@@ -296,6 +367,7 @@
               <li>godot</li>
               <li>qt</li>
             </ul>
+            <span class="skill-row__status">calibrated</span>
           </div>
           <div class="skill-row">
             <span class="skill-row__key">also</span>
@@ -305,6 +377,7 @@
               <li>git</li>
               <li>linux</li>
             </ul>
+            <span class="skill-row__status">aux</span>
           </div>
         </div>
       </div>
@@ -316,11 +389,12 @@
         <header class="section__head reveal">
           <p class="section__kicker"><span class="section__num">04</span> contact</p>
           <h2 class="section__title">контакты</h2>
+          <p class="section__lead">Открытый канал для разговоров про Rust, движки и геймдев.</p>
         </header>
 
         <div class="contact reveal">
           <div class="contact__text">
-            <p class="line"><span class="prompt">blin4ik@tty1:~$</span> <span class="cmd">mail -s "привет" blin4ik</span></p>
+            <p class="line"><span class="prompt">blin4ik@hailmary:~$</span> <span class="cmd">mail -s "привет" blin4ik</span></p>
             <p class="contact__lead">
               Открыт к разговорам про Rust, движки и геймдев, а также к интересным
               задачам на C и C++. Пишите — отвечаю в течение дня.
@@ -328,6 +402,11 @@
           </div>
 
           <div class="contact__actions">
+            <p class="contact__freq">
+              <span class="contact__freq-key">channel</span>
+              <span>1420.405 MHz</span>
+              <span class="contact__freq-note">// hydrogen line · open</span>
+            </p>
             <!-- TODO: замените адрес почты -->
             <a class="btn btn--primary" href="mailto:hello@example.com?subject=Привет%21">hello@example.com</a>
             <button class="btn" id="copy-email" type="button" data-email="hello@example.com">
@@ -342,13 +421,26 @@
 
   <footer class="site-footer">
     <div class="container footer__inner">
-      <p class="footer__text">
-        <span class="prompt">$</span> exit 0 <span class="footer__sep" aria-hidden="true">·</span>
-        © <span data-year>2026</span> blin4ik
+      <div class="footer__brand">
+        <span class="footer__mark" aria-hidden="true">
+          <img src="endfield-industries.svg" alt="" width="21" height="21" loading="lazy" decoding="async">
+        </span>
+        <p class="footer__text">
+          <span class="prompt">$</span> exit 0 <span class="footer__sep" aria-hidden="true">·</span>
+          © <span data-year>2026</span> blin4ik
+        </p>
+      </div>
+
+      <p class="footer__strat" aria-hidden="true">
+        <span>↑</span><span>↑</span><span>↓</span><span>↓</span><span>←</span><span>→</span><span>←</span><span>→</span>
+        <span class="footer__strat-label">orbital support</span>
       </p>
+
       <a class="footer__link" href="#top">[ наверх ]</a>
     </div>
   </footer>
+
+  <div class="toast" id="strat-toast" role="status" aria-live="polite"></div>
 
   <script src="assets/js/main.js" defer></script>
 </body>

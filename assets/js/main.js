@@ -18,11 +18,14 @@
 
     if (themeLabel) themeLabel.textContent = isDark ? "dark" : "light";
     if (themeColorMeta) {
-      themeColorMeta.setAttribute("content", isDark ? "#05080a" : "#f1efe5");
+      themeColorMeta.setAttribute("content", isDark ? "#04070d" : "#e8edf3");
     }
     if (themeToggle) {
       themeToggle.setAttribute("aria-label", isDark ? "Включить светлую тему" : "Включить тёмную тему");
     }
+
+    // Перерисовываем звёзды, если анимация отключена
+    if (typeof redrawStarfield === "function") redrawStarfield();
   }
 
   if (themeToggle) {
@@ -86,7 +89,7 @@
     });
 
     // При переходе на десктоп сбрасываем состояние меню
-    window.matchMedia("(min-width: 761px)").addEventListener("change", function (event) {
+    window.matchMedia("(min-width: 821px)").addEventListener("change", function (event) {
       if (event.matches) setMenu(false);
     });
   }
@@ -244,5 +247,159 @@
   document.querySelectorAll("[data-year]").forEach(function (node) {
     node.textContent = String(new Date().getFullYear());
   });
+
+  /* ---------- Звёздное поле ---------- */
+  var starCanvas = document.getElementById("starfield");
+  var starContext = starCanvas && starCanvas.getContext
+    ? starCanvas.getContext("2d")
+    : null;
+  var starfieldWidth = 0;
+  var starfieldHeight = 0;
+  var starfieldDpr = 1;
+  var starfieldStars = [];
+  var starfieldRaf = 0;
+  var starfieldRunning = false;
+
+  function resizeStarfield() {
+    if (!starCanvas || !starContext) return;
+
+    var rect = starCanvas.getBoundingClientRect();
+    starfieldWidth = Math.max(1, Math.round(rect.width));
+    starfieldHeight = Math.max(1, Math.round(rect.height));
+    starfieldDpr = Math.min(window.devicePixelRatio || 1, 2);
+
+    starCanvas.width = Math.round(starfieldWidth * starfieldDpr);
+    starCanvas.height = Math.round(starfieldHeight * starfieldDpr);
+    starContext.setTransform(starfieldDpr, 0, 0, starfieldDpr, 0, 0);
+
+    var count = Math.round((starfieldWidth * starfieldHeight) / 11000);
+    count = Math.max(60, Math.min(220, count));
+    starfieldStars = [];
+
+    for (var i = 0; i < count; i += 1) {
+      starfieldStars.push({
+        x: Math.random() * starfieldWidth,
+        y: Math.random() * starfieldHeight,
+        radius: Math.random() < 0.88
+          ? Math.random() * 1.05 + 0.35
+          : Math.random() * 1.7 + 0.9,
+        alpha: Math.random() * 0.55 + 0.2,
+        phase: Math.random() * Math.PI * 2,
+        speed: Math.random() * 0.7 + 0.25,
+        warm: Math.random() < 0.12
+      });
+    }
+  }
+
+  function drawStarfield(time) {
+    if (!starContext) return;
+
+    var light = root.dataset.theme === "light";
+    starContext.clearRect(0, 0, starfieldWidth, starfieldHeight);
+
+    for (var i = 0; i < starfieldStars.length; i += 1) {
+      var star = starfieldStars[i];
+      var twinkle = prefersReducedMotion.matches
+        ? 1
+        : 0.62 + 0.38 * Math.sin(time * 0.001 * star.speed + star.phase);
+      var alpha = star.alpha * twinkle * (light ? 0.55 : 1);
+      var rgb = star.warm
+        ? "255, 200, 87"
+        : light
+          ? "7, 70, 86"
+          : "190, 232, 255";
+
+      starContext.beginPath();
+      starContext.fillStyle = "rgba(" + rgb + ", " + alpha.toFixed(3) + ")";
+      starContext.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+      starContext.fill();
+    }
+  }
+
+  function starfieldLoop(time) {
+    if (!starfieldRunning) return;
+    drawStarfield(time);
+    starfieldRaf = window.requestAnimationFrame(starfieldLoop);
+  }
+
+  function startStarfield() {
+    if (!starContext) return;
+
+    window.cancelAnimationFrame(starfieldRaf);
+    starfieldRunning = false;
+
+    if (prefersReducedMotion.matches) {
+      drawStarfield(0);
+      return;
+    }
+
+    starfieldRunning = true;
+    starfieldRaf = window.requestAnimationFrame(starfieldLoop);
+  }
+
+  function redrawStarfield() {
+    // applyTheme() can run before the starfield is initialised.
+    if (starfieldStars && starfieldStars.length) drawStarfield(Date.now());
+  }
+
+  if (starContext) {
+    resizeStarfield();
+    startStarfield();
+
+    var starfieldResizeTimer = null;
+    window.addEventListener("resize", function () {
+      window.clearTimeout(starfieldResizeTimer);
+      starfieldResizeTimer = window.setTimeout(function () {
+        resizeStarfield();
+        startStarfield();
+      }, 150);
+    });
+
+    document.addEventListener("visibilitychange", function () {
+      if (document.hidden) {
+        window.cancelAnimationFrame(starfieldRaf);
+        starfieldRunning = false;
+      } else {
+        startStarfield();
+      }
+    });
+
+    if (typeof prefersReducedMotion.addEventListener === "function") {
+      prefersReducedMotion.addEventListener("change", startStarfield);
+    }
+  }
+
+  /* ---------- Пасхалка: стратагема ---------- */
+  var stratToast = document.getElementById("strat-toast");
+  var stratSequence = [
+    "ArrowUp", "ArrowUp", "ArrowDown", "ArrowDown",
+    "ArrowLeft", "ArrowRight", "ArrowLeft", "ArrowRight"
+  ];
+  var stratIndex = 0;
+  var stratToastTimer = null;
+
+  if (stratToast) {
+    document.addEventListener("keydown", function (event) {
+      if (event.altKey || event.ctrlKey || event.metaKey) return;
+
+      var key = event.key;
+
+      if (key === stratSequence[stratIndex]) {
+        stratIndex += 1;
+
+        if (stratIndex === stratSequence.length) {
+          stratIndex = 0;
+          stratToast.textContent = "СТРАТАГЕМА ГОТОВА // ORBITAL SUPPORT REQUESTED";
+          stratToast.classList.add("is-visible");
+          window.clearTimeout(stratToastTimer);
+          stratToastTimer = window.setTimeout(function () {
+            stratToast.classList.remove("is-visible");
+          }, 3800);
+        }
+      } else {
+        stratIndex = key === stratSequence[0] ? 1 : 0;
+      }
+    });
+  }
 })();
 
