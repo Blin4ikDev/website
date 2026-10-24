@@ -4,21 +4,23 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="dark">
-  <meta name="theme-color" content="#050505">
+  <meta name="theme-color" content="#24211c">
   <title>404 — сигнал потерян · Blin4ik</title>
   <meta name="robots" content="noindex">
   <style>
     :root {
       color-scheme: dark;
-      --bg: #050505;
-      --panel: #0a0908;
-      --fg: #f3efe2;
-      --muted: #b7b2a5;
-      --dim: #7d786d;
-      --line: #2c2a25;
-      --line-strong: #565147;
-      --accent: #ff7a18;
-      --warm: #e6d59a;
+      --bg: #24211c;
+      --panel: #2b2722;
+      --fg: #f1ede3;
+      --muted: #c9c3b5;
+      --dim: #9d9686;
+      --line: #4b463c;
+      --line-strong: #766e5d;
+      --accent: #c28b4e;
+      --accent-soft: rgba(194, 139, 78, 0.12);
+      --warm: #cdba7d;
+      --red: #bd6f60;
       --mono: ui-monospace, "SFMono-Regular", "SF Mono", Menlo, Consolas,
         "Liberation Mono", "DejaVu Sans Mono", monospace;
     }
@@ -37,7 +39,7 @@
       padding: 1.25rem;
       background-color: var(--bg);
       background-image:
-        radial-gradient(42rem 24rem at 50% 0%, rgba(255, 122, 24, 0.09), transparent 70%),
+        radial-gradient(42rem 24rem at 50% 0%, rgba(205, 186, 125, 0.04), transparent 70%),
         linear-gradient(var(--line) 1px, transparent 1px),
         linear-gradient(90deg, var(--line) 1px, transparent 1px);
       background-size: auto, 100% 96px, 96px 100%;
@@ -87,8 +89,8 @@
     .panel::after {
       right: -1px;
       bottom: -1px;
-      border-right: 2px solid var(--accent);
-      border-bottom: 2px solid var(--accent);
+      border-right: 2px solid var(--red);
+      border-bottom: 2px solid var(--red);
     }
 
     .head {
@@ -190,22 +192,22 @@
     }
 
     .button--accent {
-      background: var(--accent);
+      background: var(--accent-soft);
       border-color: var(--accent);
-      color: var(--bg);
+      color: var(--accent);
       font-weight: 700;
     }
 
     .button--accent::before,
     .button--accent::after {
-      color: var(--bg);
+      color: var(--accent);
     }
 
     .button--accent:hover,
     .button--accent:focus-visible {
-      background: #ffa45c;
-      border-color: #ffa45c;
-      color: var(--bg);
+      background: rgba(205, 186, 125, 0.14);
+      border-color: var(--warm);
+      color: var(--warm);
     }
 
     :focus-visible {

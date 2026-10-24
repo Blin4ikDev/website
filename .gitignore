@@ -1,0 +1,13 @@
+# ОС и редакторы
+.DS_Store
+Thumbs.db
+desktop.ini
+.idea/
+*.swp
+
+# Локальные артефакты
+node_modules/
+dist/
+.cache/
+*.log
+

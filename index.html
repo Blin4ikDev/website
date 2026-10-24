@@ -8,7 +8,7 @@
   <title>Blin4ik — rust / c · игровые движки</title>
   <meta name="description" content="Blin4ik — разработчик на Rust и C. Автор игрового движка на wgpu и winit и рогалика CRISP в духе Factorio.">
   <meta name="author" content="Blin4ik">
-  <meta name="theme-color" content="#050505">
+  <meta name="theme-color" content="#24211c">
 
   <!-- Open Graph / соцсети -->
   <meta property="og:type" content="website">
@@ -16,7 +16,7 @@
   <meta property="og:description" content="Пишу на Rust и C, делаю свой игровой движок на wgpu и winit. Сейчас работаю над CRISP.">
   <meta property="og:locale" content="ru_RU">
 
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23050505'/%3E%3Ctext x='32' y='42' font-family='monospace' font-size='22' font-weight='700' fill='%23ff7a18' text-anchor='middle'%3EB4%3C/text%3E%3Crect x='8' y='8' width='48' height='48' fill='none' stroke='%23e6d59a' stroke-width='1.5' stroke-dasharray='4 3'/%3E%3C/svg%3E">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%2324211c'/%3E%3Ctext x='32' y='42' font-family='monospace' font-size='22' font-weight='700' fill='%23c28b4e' text-anchor='middle'%3EB4%3C/text%3E%3Crect x='8' y='8' width='48' height='48' fill='none' stroke='%23cdba7d' stroke-width='1.5' stroke-dasharray='4 3'/%3E%3C/svg%3E">
   <link rel="stylesheet" href="assets/css/terminal.css">
 </head>
 <body>
@@ -89,52 +89,73 @@
               </figcaption>
 
               <div class="plot__svg">
-                <svg viewBox="0 0 520 300" role="img" aria-labelledby="plot-svg-title">
-                  <title id="plot-svg-title">Схема маршрута от Солнца к Тау Кита с приблизительной линией Петрова</title>
+                <svg viewBox="0 0 520 320" role="img" aria-labelledby="plot-svg-title plot-svg-desc">
+                  <title id="plot-svg-title">Две линии Петрова и межзвёздный маршрут корабля</title>
+                  <desc id="plot-svg-desc">Линия Петрова идёт от Солнца к Венере, а от Тау Кита — к Тау Кита e: это путь астрофагов к ближайшей планете с углекислым газом. Отдельный пунктирный след показывает перелёт корабля от Солнца к Тау Кита, 11,9 световых лет.</desc>
 
                   <g class="schematic-grid" aria-hidden="true">
-                    <path d="M 65 0 V 300 M 130 0 V 300 M 195 0 V 300 M 260 0 V 300 M 325 0 V 300 M 390 0 V 300 M 455 0 V 300"></path>
+                    <path d="M 65 0 V 320 M 130 0 V 320 M 195 0 V 320 M 260 0 V 320 M 325 0 V 320 M 390 0 V 320 M 455 0 V 320"></path>
                     <path d="M 0 50 H 520 M 0 110 H 520 M 0 170 H 520 M 0 230 H 520 M 0 290 H 520"></path>
                   </g>
 
                   <g class="schematic-line" aria-hidden="true">
-                    <circle cx="90" cy="190" r="34"></circle>
-                    <circle cx="90" cy="190" r="68"></circle>
-                    <circle cx="90" cy="190" r="108"></circle>
-                    <circle cx="90" cy="190" r="152"></circle>
+                    <circle cx="82" cy="192" r="34"></circle>
+                    <circle cx="82" cy="192" r="58"></circle>
+                    <circle cx="82" cy="192" r="92"></circle>
+                    <circle cx="440" cy="112" r="24"></circle>
+                    <circle cx="440" cy="112" r="48"></circle>
                   </g>
 
-                  <line class="petrova-line" x1="90" y1="190" x2="462" y2="70"></line>
+                  <!-- Petrova line: Sol → Venus (nearest CO2 planet) -->
+                  <line class="petrova-line" x1="86.6" y1="185.5" x2="131.5" y2="121.9"></line>
+                  <circle class="astrophage" cx="100.2" cy="166.4" r="1.7"></circle>
+                  <circle class="astrophage astrophage--hot" cx="111.6" cy="150.5" r="1.7"></circle>
+                  <circle class="astrophage astrophage--edge" cx="122.9" cy="134.6" r="1.7"></circle>
 
-                  <circle class="sun-ring" cx="90" cy="190" r="13"></circle>
-                  <circle class="sun" cx="90" cy="190" r="6"></circle>
-                  <text class="schematic-label schematic-label--accent" x="24" y="178">SOL</text>
+                  <!-- Petrova line: Tau Ceti → Tau Ceti e (nearest CO2 planet) -->
+                  <line class="petrova-line" x1="435" y1="117" x2="390.2" y2="161.8"></line>
+                  <circle class="astrophage" cx="419.3" cy="132.7" r="1.7"></circle>
+                  <circle class="astrophage astrophage--hot" cx="405.9" cy="146.1" r="1.7"></circle>
+                  <circle class="astrophage astrophage--edge" cx="396.9" cy="155.1" r="1.7"></circle>
 
-                  <circle class="earth" cx="161" cy="106" r="4"></circle>
-                  <text class="schematic-label" x="150" y="94">EARTH</text>
+                  <!-- Interstellar transit of the Hail Mary -->
+                  <path class="ship-route" d="M 88 186 C 170 268, 340 262, 436 124"></path>
+                  <path class="ship-route-arrow" d="M 437 122 L 433 134 L 427 129 Z"></path>
+                  <path class="ship-marker" d="M 250 233 L 263 237 L 250 241 Z"></path>
 
-                  <circle class="target-ring" cx="462" cy="70" r="18"></circle>
-                  <circle class="target-ring" cx="462" cy="70" r="9"></circle>
-                  <circle class="target" cx="462" cy="70" r="3"></circle>
-                  <text class="schematic-label" x="462" y="34" text-anchor="middle">TAU CETI</text>
+                  <!-- Sol system -->
+                  <path class="dim-axis" d="M 82 176 v 6 M 82 202 v 6 M 66 192 h 6 M 92 192 h 6"></path>
+                  <circle class="star-ring" cx="82" cy="192" r="10"></circle>
+                  <circle class="star-core" cx="82" cy="192" r="5"></circle>
+                  <text class="schematic-label schematic-label--accent" x="42" y="196" text-anchor="end">SOL</text>
 
-                  <path class="route" d="M 163 104 C 235 34, 352 22, 444 62"></path>
-                  <path class="route-arrow" d="M 434 66 L 448 61 L 440 52 Z"></path>
+                  <circle class="planet-core" cx="58" cy="245" r="2.6"></circle>
+                  <circle class="planet-ring planet-ring--dash" cx="58" cy="245" r="6.5"></circle>
+                  <text class="schematic-label schematic-label--dim" x="58" y="266" text-anchor="middle">EARTH</text>
 
-                  <text class="schematic-label schematic-label--warm" x="286" y="150" text-anchor="middle">PETROV LINE / APPROX.</text>
-                  <text class="schematic-label schematic-label--accent" x="286" y="216" text-anchor="middle">11.9 LY</text>
+                  <circle class="planet-core" cx="135" cy="117" r="2.8"></circle>
+                  <circle class="planet-ring" cx="135" cy="117" r="6.8"></circle>
+                  <text class="schematic-label" x="148" y="112">VENUS <tspan class="schematic-label--red">CO₂</tspan></text>
+                  <text class="schematic-label schematic-label--accent" x="148" y="130">PETROVA LINE</text>
 
-                  <g class="tick" aria-hidden="true">
-                    <path d="M 386 270 h 8 M 406 270 h 8 M 426 270 h 8 M 446 270 h 8 M 466 270 h 8"></path>
-                    <path d="M 386 266 v 8 M 406 266 v 8 M 426 266 v 8 M 446 266 v 8 M 466 266 v 8"></path>
-                  </g>
-                  <text class="schematic-label" x="386" y="258">VECTOR / 0.02</text>
+                  <!-- Tau Ceti system -->
+                  <path class="dim-axis" d="M 440 98 v 6 M 440 120 v 6 M 426 112 h 6 M 448 112 h 6"></path>
+                  <circle class="star-ring" cx="440" cy="112" r="9"></circle>
+                  <circle class="star-core" cx="440" cy="112" r="4.5"></circle>
+                  <text class="schematic-label" x="440" y="78" text-anchor="middle">TAU CETI</text>
+
+                  <circle class="planet-core" cx="386" cy="166" r="2.8"></circle>
+                  <circle class="planet-ring" cx="386" cy="166" r="6.8"></circle>
+                  <text class="schematic-label" x="368" y="154" text-anchor="end">TAU CETI E <tspan class="schematic-label--red">CO₂</tspan></text>
+                  <text class="schematic-label schematic-label--accent" x="368" y="172" text-anchor="end">PETROVA LINE</text>
+
+                  <text class="schematic-label schematic-label--dim" x="257" y="302" text-anchor="middle">HAIL MARY TRANSIT <tspan class="schematic-label--warm">// 11.9 LY</tspan></text>
                 </svg>
               </div>
 
               <div class="instrument__foot">
-                <span>SOL → TAU CETI</span>
-                <span>11.9 LY</span>
+                <span>PETROVA / VENUS · TAU CETI E</span>
+                <span>TRANSIT 11.9 LY</span>
               </div>
             </figure>
 
@@ -154,7 +175,7 @@
                   <path class="force-vector" d="M 80 80 L 80 28"></path>
                   <path class="force-arrow" d="M 73 36 L 80 24 L 87 36"></path>
                   <path class="force-vector force-vector--warm" d="M 80 80 L 121 106"></path>
-                  <path class="force-arrow" d="M 114 100 L 125 109 L 115 116"></path>
+                  <path class="force-arrow" d="M 107.1 105.5 L 121 106 L 114.6 93.6"></path>
                   <circle class="force-center" cx="80" cy="80" r="3"></circle>
                 </svg>
 

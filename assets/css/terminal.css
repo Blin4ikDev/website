@@ -1,20 +1,23 @@
 /* ==========================================================================
    Blin4ik — personal console
-   Black / warm white / orange, with a pastel-yellow analog accent.
+   Project Hail Mary ship display: white line work on warm graphite, with a
+   dull yellow-orange accent and muted yellow / red signal colours.
    ========================================================================== */
 
 :root {
-  --bg: #050505;
-  --bg-panel: #0a0908;
-  --bg-raised: #0e0d0b;
-  --fg: #f3efe2;
-  --muted: #b7b2a5;
-  --dim: #7d786d;
-  --line: #2c2a25;
-  --line-strong: #565147;
-  --accent: #ff7a18;
-  --accent-soft: rgba(255, 122, 24, 0.12);
-  --warm: #e6d59a;
+  --bg: #24211c;
+  --bg-panel: #2b2722;
+  --bg-raised: #332e27;
+  --fg: #f1ede3;
+  --muted: #c9c3b5;
+  --dim: #9d9686;
+  --line: #4b463c;
+  --line-strong: #766e5d;
+  --accent: #c28b4e;
+  --accent-soft: rgba(194, 139, 78, 0.12);
+  --warm: #cdba7d;
+  --red: #bd6f60;
+  --red-soft: rgba(189, 111, 96, 0.16);
 
   --font-mono: ui-monospace, "SFMono-Regular", "JetBrains Mono", "IBM Plex Mono",
     Menlo, Consolas, "Liberation Mono", monospace;
@@ -43,8 +46,7 @@ body {
   min-height: 100vh;
   overflow-x: hidden;
   background:
-    radial-gradient(60rem 38rem at 82% -8%, rgba(255, 122, 24, 0.06), transparent 62%),
-    radial-gradient(42rem 30rem at 0% 20%, rgba(230, 213, 154, 0.035), transparent 68%),
+    radial-gradient(60rem 40rem at 82% -10%, rgba(205, 186, 125, 0.035), transparent 65%),
     var(--bg);
   color: var(--fg);
   font-family: var(--font-mono);
@@ -64,12 +66,12 @@ body::after {
   pointer-events: none;
   background: repeating-linear-gradient(
     0deg,
-    rgba(255, 255, 255, 0.016) 0,
-    rgba(255, 255, 255, 0.016) 1px,
+    rgba(255, 255, 255, 0.012) 0,
+    rgba(255, 255, 255, 0.012) 1px,
     transparent 1px,
     transparent 3px
   );
-  opacity: 0.5;
+  opacity: 0.4;
 }
 
 h1,
@@ -107,7 +109,7 @@ svg {
 
 ::selection {
   background: var(--accent);
-  color: #0a0500;
+  color: var(--bg);
 }
 
 :focus-visible {
@@ -132,7 +134,7 @@ svg {
   transform: translateY(-200%);
   padding: 0.7rem 1rem;
   background: var(--accent);
-  color: #0a0500;
+  color: #171008;
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.12em;
@@ -151,14 +153,14 @@ svg {
   top: 0;
   z-index: 50;
   border-bottom: 1px solid var(--line);
-  background: rgba(5, 5, 5, 0.86);
+  background: rgba(36, 33, 28, 0.9);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
 }
 
 .site-header.is-scrolled {
   border-bottom-color: var(--line-strong);
-  background: rgba(5, 5, 5, 0.95);
+  background: rgba(36, 33, 28, 0.97);
 }
 
 .header__inner {
@@ -180,8 +182,8 @@ svg {
   place-items: center;
   min-width: 2.1rem;
   padding: 0.12rem 0.35rem;
-  border: 1px solid var(--accent);
-  color: var(--accent);
+  border: 1px solid var(--warm);
+  color: var(--warm);
   font-size: 0.68rem;
   font-weight: 700;
   letter-spacing: 0.12em;
@@ -220,8 +222,7 @@ svg {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: var(--accent);
-  box-shadow: 0 0 8px rgba(255, 122, 24, 0.75);
+  background: var(--warm);
   animation: status-pulse 2.8s ease-in-out infinite;
 }
 
@@ -325,8 +326,8 @@ svg {
   display: inline-block;
   margin-right: 0.55rem;
   padding: 0.08rem 0.35rem;
-  border: 1px solid var(--accent);
-  color: var(--accent);
+  border: 1px solid var(--red);
+  color: var(--red);
   font-size: 0.58rem;
   letter-spacing: 0.16em;
 }
@@ -373,7 +374,7 @@ svg {
 .hero__role {
   margin-bottom: 1.15rem;
   padding-left: 0.75rem;
-  border-left: 2px solid var(--accent);
+  border-left: 2px solid var(--warm);
   color: var(--warm);
   font-size: clamp(0.74rem, 1.5vw, 0.88rem);
   letter-spacing: 0.04em;
@@ -420,14 +421,14 @@ svg {
 
 .button--accent {
   border-color: var(--accent);
-  background: var(--accent);
-  color: #0a0500;
+  background: var(--accent-soft);
+  color: var(--accent);
 }
 
 .button--accent:hover {
-  border-color: #ff9445;
-  background: #ff9445;
-  color: #0a0500;
+  border-color: var(--warm);
+  background: rgba(205, 186, 125, 0.14);
+  color: var(--warm);
 }
 
 .socials {
@@ -490,15 +491,15 @@ svg {
 .instrument::before {
   top: -1px;
   left: -1px;
-  border-top: 1px solid var(--accent);
-  border-left: 1px solid var(--accent);
+  border-top: 1px solid var(--warm);
+  border-left: 1px solid var(--warm);
 }
 
 .instrument::after {
   right: -1px;
   bottom: -1px;
-  border-right: 1px solid var(--accent);
-  border-bottom: 1px solid var(--accent);
+  border-right: 1px solid var(--red);
+  border-bottom: 1px solid var(--red);
 }
 
 .instrument__head {
@@ -563,11 +564,11 @@ svg {
   height: auto;
 }
 
-/* Orbital schematic */
+/* Hail Mary / Petrova line schematic */
 
 .schematic-grid path {
   fill: none;
-  stroke: #1c1b18;
+  stroke: #3b362d;
   stroke-width: 1;
 }
 
@@ -575,15 +576,87 @@ svg {
   fill: none;
   stroke: var(--line);
   stroke-width: 1;
-  stroke-dasharray: 3 5;
+  stroke-dasharray: 2 6;
+  opacity: 0.8;
 }
 
+/* A Petrova line is a short star → CO2 planet path, not a star → star route. */
 .petrova-line {
   fill: none;
-  stroke: var(--warm);
+  stroke: var(--accent);
+  stroke-width: 1.5;
+  stroke-dasharray: 6 4;
+  stroke-linecap: round;
+}
+
+.astrophage {
+  fill: var(--warm);
+}
+
+.astrophage--hot {
+  fill: var(--accent);
+}
+
+.astrophage--edge {
+  fill: var(--red);
+}
+
+.star-core {
+  fill: var(--fg);
+}
+
+.star-ring {
+  fill: none;
+  stroke: var(--line-strong);
   stroke-width: 1;
-  stroke-dasharray: 6 6;
-  opacity: 0.6;
+}
+
+.planet-core {
+  fill: var(--fg);
+}
+
+.planet-ring {
+  fill: none;
+  stroke: var(--red);
+  stroke-width: 1;
+  opacity: 0.8;
+}
+
+.planet-ring--dash {
+  stroke-dasharray: 3 4;
+  opacity: 0.4;
+}
+
+/* The ship's interstellar transit is a separate, quieter white trace. */
+.ship-route {
+  fill: none;
+  stroke: rgba(241, 237, 227, 0.38);
+  stroke-width: 1;
+  stroke-dasharray: 1.5 5;
+  stroke-linecap: round;
+}
+
+.ship-route-arrow {
+  fill: rgba(241, 237, 227, 0.45);
+}
+
+.ship-marker {
+  fill: var(--fg);
+  opacity: 0.7;
+}
+
+.dim-trace {
+  fill: none;
+  stroke: var(--red);
+  stroke-width: 1.2;
+  stroke-linejoin: round;
+}
+
+.dim-axis {
+  fill: none;
+  stroke: var(--line-strong);
+  stroke-width: 1;
+  opacity: 0.7;
 }
 
 .schematic-label {
@@ -602,47 +675,30 @@ svg {
   opacity: 0.85;
 }
 
-.sun {
-  fill: var(--accent);
-  filter: drop-shadow(0 0 6px rgba(255, 122, 24, 0.85));
+.schematic-label--red {
+  fill: var(--red);
 }
 
-.sun-ring {
-  fill: none;
-  stroke: var(--accent);
-  stroke-width: 1;
-  opacity: 0.45;
+.schematic-label--dim {
+  fill: var(--dim);
 }
 
-.earth {
-  fill: var(--fg);
+.instrument__state--alert {
+  color: var(--red);
 }
 
-.route {
-  fill: none;
-  stroke: var(--fg);
-  stroke-width: 1.2;
+.instrument__state--alert::before {
+  animation: alert-pulse 2.2s ease-in-out infinite;
 }
 
-.route-arrow {
-  fill: var(--accent);
-}
-
-.target {
-  fill: var(--accent);
-}
-
-.target-ring {
-  fill: none;
-  stroke: var(--accent);
-  stroke-width: 1;
-  opacity: 0.75;
-}
-
-.tick path {
-  fill: none;
-  stroke: var(--line-strong);
-  stroke-width: 1;
+@keyframes alert-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
 }
 
 /* Force monitor */
@@ -674,7 +730,7 @@ svg {
 
 .force-cross {
   fill: none;
-  stroke: #23221e;
+  stroke: #3b362d;
   stroke-width: 1;
 }
 
@@ -786,7 +842,7 @@ svg {
 
 .section__no {
   margin-bottom: 0.6rem;
-  color: var(--accent);
+  color: var(--red);
   font-size: 0.64rem;
   letter-spacing: 0.28em;
   text-transform: uppercase;
@@ -826,7 +882,7 @@ svg {
 }
 
 .prose p:first-child {
-  color: #d8d3c5;
+  color: #ded8ca;
 }
 
 .prose p:last-child {
@@ -848,8 +904,8 @@ svg {
   left: -1px;
   width: 18px;
   height: 18px;
-  border-top: 1px solid var(--accent);
-  border-left: 1px solid var(--accent);
+  border-top: 1px solid var(--warm);
+  border-left: 1px solid var(--warm);
 }
 
 .dossier__label {
@@ -907,12 +963,12 @@ svg {
 }
 
 .project:hover {
-  background: rgba(255, 122, 24, 0.035);
+  background: rgba(205, 186, 125, 0.045);
 }
 
 .project__no {
   padding-top: 0.15rem;
-  color: var(--accent);
+  color: var(--warm);
   font-size: 0.7rem;
   letter-spacing: 0.14em;
 }
@@ -976,8 +1032,7 @@ svg {
   width: 5px;
   height: 5px;
   border-radius: 50%;
-  background: var(--accent);
-  box-shadow: 0 0 6px rgba(255, 122, 24, 0.7);
+  background: var(--warm);
 }
 
 .project__link {
@@ -1002,7 +1057,7 @@ svg {
   padding: 0.16rem 0.48rem;
   border: 1px solid var(--line);
   background: rgba(255, 255, 255, 0.015);
-  color: #c9c3b3;
+  color: #cbc5b6;
   font-size: 0.6rem;
   letter-spacing: 0.12em;
   line-height: 1.5;
@@ -1051,7 +1106,7 @@ svg {
   padding: clamp(1.4rem, 4vw, 2.5rem);
   border: 1px solid var(--line);
   background:
-    linear-gradient(120deg, rgba(255, 122, 24, 0.05), transparent 55%),
+    linear-gradient(120deg, rgba(189, 111, 96, 0.05), transparent 55%),
     var(--bg-panel);
 }
 
@@ -1067,15 +1122,15 @@ svg {
 .contact::before {
   top: -1px;
   left: -1px;
-  border-top: 1px solid var(--accent);
-  border-left: 1px solid var(--accent);
+  border-top: 1px solid var(--warm);
+  border-left: 1px solid var(--warm);
 }
 
 .contact::after {
   right: -1px;
   bottom: -1px;
-  border-right: 1px solid var(--accent);
-  border-bottom: 1px solid var(--accent);
+  border-right: 1px solid var(--red);
+  border-bottom: 1px solid var(--red);
 }
 
 .contact__main {
@@ -1222,7 +1277,7 @@ svg {
     margin: 0;
     padding: 0.6rem var(--gutter) 1rem;
     border-bottom: 1px solid var(--line-strong);
-    background: #070706;
+    background: var(--bg);
   }
 
   .nav.is-open {
@@ -1309,13 +1364,13 @@ svg {
     grid-template-columns: 6.4rem minmax(0, 1fr);
   }
 
+  /* Let the whole schematic fit on a phone; labels are enlarged to compensate. */
   .plot__svg svg {
-    min-width: 430px;
+    min-width: 0;
   }
 
-  /* The schematic is scaled down on phones, so enlarge its labels. */
   .schematic-label {
-    font-size: 11px;
+    font-size: 13px;
   }
 }
 
